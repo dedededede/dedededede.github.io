@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="mysql," />
 
 
 
@@ -57,15 +57,28 @@
 
 
 
-<meta name="description" content="python ｜mysql ｜Linux">
-<meta property="og:type" content="website">
-<meta property="og:title" content="一直在路上">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="解释一下SQL里面的null答案：null代表一个unknown的值或者一个不存在的值
+如何用SQL判断一个值是不是null?答案：可以用is null来判断一个值是不是null
+所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null答案：正确
+所有与null得比较运算都返回unknown正确吗？答案：正确
+(unknown or true) = tr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql中的unkonw">
+<meta property="og:url" content="http://yoursite.com/2016/04/05/sql中的unkonw/index.html">
 <meta property="og:site_name" content="一直在路上">
-<meta property="og:description" content="python ｜mysql ｜Linux">
+<meta property="og:description" content="解释一下SQL里面的null答案：null代表一个unknown的值或者一个不存在的值
+如何用SQL判断一个值是不是null?答案：可以用is null来判断一个值是不是null
+所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null答案：正确
+所有与null得比较运算都返回unknown正确吗？答案：正确
+(unknown or true) = tr">
+<meta property="og:updated_time" content="2016-04-05T13:27:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一直在路上">
-<meta name="twitter:description" content="python ｜mysql ｜Linux">
+<meta name="twitter:title" content="sql中的unkonw">
+<meta name="twitter:description" content="解释一下SQL里面的null答案：null代表一个unknown的值或者一个不存在的值
+如何用SQL判断一个值是不是null?答案：可以用is null来判断一个值是不是null
+所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null答案：正确
+所有与null得比较运算都返回unknown正确吗？答案：正确
+(unknown or true) = tr">
 
 
 
@@ -83,7 +96,7 @@
   };
 </script>
 
-  <title> 一直在路上 </title>
+  <title> sql中的unkonw | 一直在路上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -104,9 +117,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -183,9 +194,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -205,10 +216,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/04/05/sql中的unkonw/" itemprop="url">
-                  sql中的unkonw
-                </a>
+                sql中的unkonw
               
             
           </h1>
@@ -247,9 +255,7 @@
       
 
       
-        
-          
-            <ol>
+        <ol>
 <li>解释一下SQL里面的null<br>答案：null代表一个unknown的值或者一个不存在的值</li>
 <li>如何用SQL判断一个值是不是null?<br>答案：可以用is null来判断一个值是不是null</li>
 <li>所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null<br>答案：正确</li>
@@ -267,150 +273,57 @@
 <p>因为NULL当UNKNOWN来理解，因此，当值为NULL时，它既有可能是FALSE也有可能是TRUE。如果计算结果只有一种可能，则取该种可能；如果计算结果既有可能是FALSE，也有可能是TRUE，那么结果便为NULL。例如，NOT NULL，其结果也有两种可能，因此NOT NULL的结果是NULL。再例如，NULL AND TRUE，则其结果也有两种可能，因此NULL AND TRUE的结果是NULL。但是，NULL OR TRUE，或是NULL AND FALSE，前者结果为TRUE，单是一个TRUE出现，便足以知道结果为TRUE；后者结果为FALSE，单是一个FALSE出现，便足以知道结果为FALSE。这是OR和AND的特性决定的。</p>
 <p>现在回过头来，看上面的问题，是不是觉得就很容易理解了。</p>
 
-          
-        
       
     </div>
     
     <div>
       
+        
+      
     </div>
 
     <div>
+      
+        
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/02/python中的True-False/" itemprop="url">
-                  python中的True,False
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-02T22:44:55+08:00" content="2016-04-02">
-              2016-04-02
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index">
-                    <span itemprop="name">python</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
+            <a href="/tags/mysql/" rel="tag">#mysql</a>
           
-
-          
-            
-          
-
-          
-
-          
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <hr>
-<p>在Python中，0 == False， 1 == True 其余的既不是True，也不是False。<br>如果牵扯到bool计算时，除了’’、””、0、()、[]、{}、None为False之外，<br>其他的都是True。</p>
-<p>if 条件判断是在计算完后面表达式结束是，然后把计算结果进行bool计算。</p>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/02/python中的True-False/" rel="next" title="python中的True,False">
+                <i class="fa fa-chevron-left"></i> python中的True,False
+              </a>
+            
+          </div>
 
-          
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -418,6 +331,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -437,8 +354,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/default_avatar.jpg"
@@ -490,6 +416,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -574,6 +511,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
 
   
 
