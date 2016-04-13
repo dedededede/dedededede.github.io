@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-04-06T15:02:32.000Z</updated>
+  <updated>2016-04-13T15:10:25.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,50 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python import 机制</title>
+    <link href="http://yoursite.com/2016/04/12/python-import-%E6%9C%BA%E5%88%B6/"/>
+    <id>http://yoursite.com/2016/04/12/python-import-机制/</id>
+    <published>2016-04-12T14:20:00.000Z</published>
+    <updated>2016-04-13T15:10:25.000Z</updated>
+    
+    <content type="html">&lt;p&gt;首先看一个官方给出的&lt;a href=&quot;https://docs.python.org/2/whatsnew/2.5.html#pep-328-absolute-and-relative-imports&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;例子&lt;/a&gt;&lt;br&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;pkg/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pkg/__init__.py&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pkg/main.py&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pkg/string.py&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;现在考虑一下,如果我在main中import string 会发生什么？是引入系统的string还是引入当前目录下的string。&lt;br&gt;在Python2.4之前的版本会在当前的目录下引入string.py，并且会把它绑定到pkg.main的命名空间。如果你想引入string标准库该怎么做呢？py.std提供了一个整洁的方法去引入，&lt;br&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; py&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;py.std.strin.join()&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;但是这不是适用所有的Python版本。&lt;/p&gt;
+&lt;p&gt;Python中有两种引入包的方式&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;相对引入&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在Python2.5之前是默认的引入方法。你可以通过使用from __future__ import absolute&lt;em&gt;import来使用绝对引入。&lt;br&gt;相对引入肯定是需要一个参照的对象，这里的参照物是谁呢？相对引入使用被引入文件的\&lt;/em&gt;_name__ 属性来决定该文件在整个包结构的位置。如果__name__ 的值为__main__，那么认为其为top level script，这个时候相对引入就没有引入的参照物，就会抛出ValueError: Attempted relative import in non-package的异常。&lt;br&gt;为了解决这个问题，PEP 0366 — Main module explicit relative imports提出了一个解决方案。&lt;br&gt;允许用户使用python -m source&lt;em&gt;folder.main的方式,来执行该文件。在这个方案下，引入了一个新的属性\&lt;/em&gt;_package__（会显示当前运行的程序所在的包的名称）。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;绝对引入&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在Python2.7之后，绝对引入是Python默认的引入方式，import string 会去查找标准库的string模块。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;最后，对于两种引用的方式选择，还是有争论的。在PEP8中，Python官方推荐的是绝对引用,详细理由可以参考这儿。&lt;/p&gt;
+&lt;p&gt;Absolute imports are recommended, as they are usually more readable and tend to be better behaved (or at least give better error messages) if the import system is incorrectly configured (such as when a directory inside a package ends up on sys.path ):&lt;/p&gt;
+&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; mypkg.sibling&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; mypkg &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; sibling&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; mypkg.sibling &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; example&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;However, explicit relative imports are an acceptable alternative to absolute imports, especially when dealing with complex package layouts where using absolute imports would be unnecessarily verbose:&lt;/p&gt;
+&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; . &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; sibling&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;from&lt;/span&gt; .sibling &lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; example&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;Standard library code should avoid complex package layouts and always use absolute imports. Implicit relative imports should never be used and have been removed in Python 3.&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;首先看一个官方给出的&lt;a href=&quot;https://docs.python.org/2/whatsnew/2.5.html#pep-328-absolute-and-relative-imports&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;例子&lt;/
+    
+    </summary>
+    
+      <category term="python" scheme="http://yoursite.com/categories/python/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>sql中的unkonw</title>

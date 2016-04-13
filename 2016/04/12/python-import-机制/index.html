@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mysql," />
+  <meta name="keywords" content="python," />
 
 
 
@@ -59,28 +59,19 @@
 
 
 
-<meta name="description" content="解释一下SQL里面的null答案：null代表一个unknown的值或者一个不存在的值
-如何用SQL判断一个值是不是null?答案：可以用is null来判断一个值是不是null
-所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null答案：正确
-所有与null得比较运算都返回unknown正确吗？答案：正确
-(unknown or true) = tr">
+<meta name="description" content="首先看一个官方给出的例子1234pkg/pkg/__init__.pypkg/main.pypkg/string.py
+现在考虑一下,如果我在main中import string 会发生什么？是引入系统的string还是引入当前目录下的string。在Python2.4之前的版本会在当前的目录下引入string.py，并且会把它绑定到pkg.main的命名空间。如果你想引入string标准库该怎么">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sql中的unkonw">
-<meta property="og:url" content="http://yoursite.com/2016/04/05/sql中的unkonw/index.html">
+<meta property="og:title" content="python import 机制">
+<meta property="og:url" content="http://yoursite.com/2016/04/12/python-import-机制/index.html">
 <meta property="og:site_name" content="一直在路上">
-<meta property="og:description" content="解释一下SQL里面的null答案：null代表一个unknown的值或者一个不存在的值
-如何用SQL判断一个值是不是null?答案：可以用is null来判断一个值是不是null
-所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null答案：正确
-所有与null得比较运算都返回unknown正确吗？答案：正确
-(unknown or true) = tr">
-<meta property="og:updated_time" content="2016-04-06T15:02:32.000Z">
+<meta property="og:description" content="首先看一个官方给出的例子1234pkg/pkg/__init__.pypkg/main.pypkg/string.py
+现在考虑一下,如果我在main中import string 会发生什么？是引入系统的string还是引入当前目录下的string。在Python2.4之前的版本会在当前的目录下引入string.py，并且会把它绑定到pkg.main的命名空间。如果你想引入string标准库该怎么">
+<meta property="og:updated_time" content="2016-04-13T15:10:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sql中的unkonw">
-<meta name="twitter:description" content="解释一下SQL里面的null答案：null代表一个unknown的值或者一个不存在的值
-如何用SQL判断一个值是不是null?答案：可以用is null来判断一个值是不是null
-所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null答案：正确
-所有与null得比较运算都返回unknown正确吗？答案：正确
-(unknown or true) = tr">
+<meta name="twitter:title" content="python import 机制">
+<meta name="twitter:description" content="首先看一个官方给出的例子1234pkg/pkg/__init__.pypkg/main.pypkg/string.py
+现在考虑一下,如果我在main中import string 会发生什么？是引入系统的string还是引入当前目录下的string。在Python2.4之前的版本会在当前的目录下引入string.py，并且会把它绑定到pkg.main的命名空间。如果你想引入string标准库该怎么">
 
 
 
@@ -98,7 +89,7 @@
   };
 </script>
 
-  <title> sql中的unkonw | 一直在路上 </title>
+  <title> python import 机制 | 一直在路上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -238,7 +229,7 @@
             
             
               
-                sql中的unkonw
+                python import 机制
               
             
           </h1>
@@ -250,8 +241,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-05T21:18:22+08:00" content="2016-04-05">
-              2016-04-05
+            <time itemprop="dateCreated" datetime="2016-04-12T22:20:00+08:00" content="2016-04-12">
+              2016-04-12
             </time>
           </span>
 
@@ -264,8 +255,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/mysql/" itemprop="url" rel="index">
-                    <span itemprop="name">mysql</span>
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
                   </a>
                 </span>
 
@@ -280,8 +271,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/05/sql中的unkonw/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/05/sql中的unkonw/" itemprop="commentsCount"></span>
+                <a href="/2016/04/12/python-import-机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/12/python-import-机制/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -303,23 +294,28 @@
       
 
       
-        <ol>
-<li>解释一下SQL里面的null<br>答案：null代表一个unknown的值或者一个不存在的值</li>
-<li>如何用SQL判断一个值是不是null?<br>答案：可以用is null来判断一个值是不是null</li>
-<li>所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null<br>答案：正确</li>
-<li>所有与null得比较运算都返回unknown正确吗？<br>答案：正确</li>
-<li>(unknown or true) = true正确吗？<br>答案：正确，进行的是或运算，就算不知道unknown不知道真假，但是or后面的true为真，所以最终结果为true。</li>
-<li>(unknown or false) = unknown正确吗？<br>答案：正确，</li>
-<li>(unknown or unknown) = unknown正确吗？<br>答案：正确</li>
-<li>(true and unknown) = unknown正确吗？<br>答案：正确</li>
-<li>(false and unknown) = false正确吗？<br>答案：正确</li>
-<li>(unknown and unknown) = unknown正确吗？<br>答案：正确</li>
-<li>(not unknown) = unknown 正确吗？<br>答案：正确</li>
+        <p>首先看一个官方给出的<a href="https://docs.python.org/2/whatsnew/2.5.html#pep-328-absolute-and-relative-imports" target="_blank" rel="external">例子</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pkg/</span><br><span class="line">pkg/__init__.py</span><br><span class="line">pkg/main.py</span><br><span class="line">pkg/string.py</span><br></pre></td></tr></table></figure></p>
+<p>现在考虑一下,如果我在main中import string 会发生什么？是引入系统的string还是引入当前目录下的string。<br>在Python2.4之前的版本会在当前的目录下引入string.py，并且会把它绑定到pkg.main的命名空间。如果你想引入string标准库该怎么做呢？py.std提供了一个整洁的方法去引入，<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> py</span><br><span class="line">py.std.strin.join()</span><br></pre></td></tr></table></figure></p>
+<p>但是这不是适用所有的Python版本。</p>
+<p>Python中有两种引入包的方式</p>
+<ol>
+<li><p>相对引入</p>
+<blockquote>
+<p>在Python2.5之前是默认的引入方法。你可以通过使用from __future__ import absolute<em>import来使用绝对引入。<br>相对引入肯定是需要一个参照的对象，这里的参照物是谁呢？相对引入使用被引入文件的\</em>_name__ 属性来决定该文件在整个包结构的位置。如果__name__ 的值为__main__，那么认为其为top level script，这个时候相对引入就没有引入的参照物，就会抛出ValueError: Attempted relative import in non-package的异常。<br>为了解决这个问题，PEP 0366 — Main module explicit relative imports提出了一个解决方案。<br>允许用户使用python -m source<em>folder.main的方式,来执行该文件。在这个方案下，引入了一个新的属性\</em>_package__（会显示当前运行的程序所在的包的名称）。</p>
+</blockquote>
+</li>
+<li><p>绝对引入</p>
+<blockquote>
+<p>在Python2.7之后，绝对引入是Python默认的引入方式，import string 会去查找标准库的string模块。</p>
+</blockquote>
+</li>
 </ol>
-<p>刚开始看了以上面试题，觉得一点都不会，后来查询了mysql手册，顿时大唔。<br>对于SQL的新手，NULL值的概念常常会造成混淆，他们常认为NULL是与空字符串’’相同的事。<br>为了进行NULL处理，可使用IS NULL和IS NOT NULL操作符以及IFNULL()函数。</p>
-<p>在SQL中，NULL值与任何其它值的比较（即使是NULL）永远不会为“真”。包含NULL的表达式总是会导出NULL值，除非在关于操作符的文档中以及表达式的函数中作了其他规定。<br>后来又查看了<a href="http://blog.sina.com.cn/gujinku" target="_blank" rel="external">http://blog.sina.com.cn/gujinku</a> 这篇文章，下面是其中的一段话，</p>
-<p>因为NULL当UNKNOWN来理解，因此，当值为NULL时，它既有可能是FALSE也有可能是TRUE。如果计算结果只有一种可能，则取该种可能；如果计算结果既有可能是FALSE，也有可能是TRUE，那么结果便为NULL。例如，NOT NULL，其结果也有两种可能，因此NOT NULL的结果是NULL。再例如，NULL AND TRUE，则其结果也有两种可能，因此NULL AND TRUE的结果是NULL。但是，NULL OR TRUE，或是NULL AND FALSE，前者结果为TRUE，单是一个TRUE出现，便足以知道结果为TRUE；后者结果为FALSE，单是一个FALSE出现，便足以知道结果为FALSE。这是OR和AND的特性决定的。</p>
-<p>现在回过头来，看上面的问题，是不是觉得就很容易理解了。</p>
+<p>最后，对于两种引用的方式选择，还是有争论的。在PEP8中，Python官方推荐的是绝对引用,详细理由可以参考这儿。</p>
+<p>Absolute imports are recommended, as they are usually more readable and tend to be better behaved (or at least give better error messages) if the import system is incorrectly configured (such as when a directory inside a package ends up on sys.path ):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> mypkg.sibling</span><br><span class="line"><span class="keyword">from</span> mypkg <span class="keyword">import</span> sibling</span><br><span class="line"><span class="keyword">from</span> mypkg.sibling <span class="keyword">import</span> example</span><br></pre></td></tr></table></figure>
+<p>However, explicit relative imports are an acceptable alternative to absolute imports, especially when dealing with complex package layouts where using absolute imports would be unnecessarily verbose:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> sibling</span><br><span class="line"><span class="keyword">from</span> .sibling <span class="keyword">import</span> example</span><br></pre></td></tr></table></figure>
+<p>Standard library code should avoid complex package layouts and always use absolute imports. Implicit relative imports should never be used and have been removed in Python 3.</p>
 
       
     </div>
@@ -340,7 +336,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/" rel="tag">#mysql</a>
+            <a href="/tags/python/" rel="tag">#python</a>
           
         </div>
       
@@ -349,17 +345,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/02/python中的True-False/" rel="next" title="python中的True,False">
-                <i class="fa fa-chevron-left"></i> python中的True,False
+              <a href="/2016/04/05/sql中的unkonw/" rel="next" title="sql中的unkonw">
+                <i class="fa fa-chevron-left"></i> sql中的unkonw
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/12/python-import-机制/" rel="prev" title="python import 机制">
-                python import 机制 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -408,8 +400,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/05/sql中的unkonw/"
-           data-title="sql中的unkonw" data-url="http://yoursite.com/2016/04/05/sql中的unkonw/">
+      <div class="ds-thread" data-thread-key="2016/04/12/python-import-机制/"
+           data-title="python import 机制" data-url="http://yoursite.com/2016/04/12/python-import-机制/">
       </div>
     
   </div>

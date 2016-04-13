@@ -228,6 +228,146 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/12/python-import-机制/" itemprop="url">
+                  python import 机制
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-12T22:20:00+08:00" content="2016-04-12">
+              2016-04-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/12/python-import-机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/12/python-import-机制/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>首先看一个官方给出的<a href="https://docs.python.org/2/whatsnew/2.5.html#pep-328-absolute-and-relative-imports" target="_blank" rel="external">例子</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pkg/</span><br><span class="line">pkg/__init__.py</span><br><span class="line">pkg/main.py</span><br><span class="line">pkg/string.py</span><br></pre></td></tr></table></figure></p>
+<p>现在考虑一下,如果我在main中import string 会发生什么？是引入系统的string还是引入当前目录下的string。<br>在Python2.4之前的版本会在当前的目录下引入string.py，并且会把它绑定到pkg.main的命名空间。如果你想引入string标准库该怎么做呢？py.std提供了一个整洁的方法去引入，<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> py</span><br><span class="line">py.std.strin.join()</span><br></pre></td></tr></table></figure></p>
+<p>但是这不是适用所有的Python版本。</p>
+<p>Python中有两种引入包的方式</p>
+<ol>
+<li><p>相对引入</p>
+<blockquote>
+<p>在Python2.5之前是默认的引入方法。你可以通过使用from __future__ import absolute<em>import来使用绝对引入。<br>相对引入肯定是需要一个参照的对象，这里的参照物是谁呢？相对引入使用被引入文件的\</em>_name__ 属性来决定该文件在整个包结构的位置。如果__name__ 的值为__main__，那么认为其为top level script，这个时候相对引入就没有引入的参照物，就会抛出ValueError: Attempted relative import in non-package的异常。<br>为了解决这个问题，PEP 0366 — Main module explicit relative imports提出了一个解决方案。<br>允许用户使用python -m source<em>folder.main的方式,来执行该文件。在这个方案下，引入了一个新的属性\</em>_package__（会显示当前运行的程序所在的包的名称）。</p>
+</blockquote>
+</li>
+<li><p>绝对引入</p>
+<blockquote>
+<p>在Python2.7之后，绝对引入是Python默认的引入方式，import string 会去查找标准库的string模块。</p>
+</blockquote>
+</li>
+</ol>
+<p>最后，对于两种引用的方式选择，还是有争论的。在PEP8中，Python官方推荐的是绝对引用,详细理由可以参考这儿。</p>
+<p>Absolute imports are recommended, as they are usually more readable and tend to be better behaved (or at least give better error messages) if the import system is incorrectly configured (such as when a directory inside a package ends up on sys.path ):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> mypkg.sibling</span><br><span class="line"><span class="keyword">from</span> mypkg <span class="keyword">import</span> sibling</span><br><span class="line"><span class="keyword">from</span> mypkg.sibling <span class="keyword">import</span> example</span><br></pre></td></tr></table></figure>
+<p>However, explicit relative imports are an acceptable alternative to absolute imports, especially when dealing with complex package layouts where using absolute imports would be unnecessarily verbose:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> . <span class="keyword">import</span> sibling</span><br><span class="line"><span class="keyword">from</span> .sibling <span class="keyword">import</span> example</span><br></pre></td></tr></table></figure>
+<p>Standard library code should avoid complex package layouts and always use absolute imports. Implicit relative imports should never be used and have been removed in Python 3.</p>
+
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/05/sql中的unkonw/" itemprop="url">
                   sql中的unkonw
                 </a>
@@ -504,7 +644,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
