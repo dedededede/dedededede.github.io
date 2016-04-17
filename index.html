@@ -228,6 +228,146 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/17/CentOS中搭建mysql5-1/" itemprop="url">
+                  CentOS中搭建mysql5.1
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-17T21:36:52+08:00" content="2016-04-17">
+              2016-04-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/17/CentOS中搭建mysql5-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/17/CentOS中搭建mysql5-1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##本地新建虚拟机，并配置mysql环境</p>
+<p>###1.搭建虚拟机,安装centos环境</p>
+<p>####1.1 下载<a href="https://www.virtualbox.org/" target="_blank" rel="external">virtualbox</a></p>
+<p>####1.2 下载<a href="http://124.205.69.163/files/501700000008DED0/mirror.neu.edu.cn/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-bin-DVD1.iso" target="_blank" rel="external">centos6.5</a></p>
+<p>####1.3 安装virtualbox，建立centos系统这里就不再赘述了</p>
+<p>###2.在虚拟机中搭建mysql环境</p>
+<p>####2.1 yum安装mysql</p>
+<pre><code>&gt; yum -y install mysql-server
+&gt; yum -y install mysql-client
+</code></pre><p>####2.2 设置MySQL的root用户设置密码</p>
+<pre><code>&gt; mysqladmin -uroot password &apos;密码&apos;
+</code></pre><p>####2.3 给账户赋予权限</p>
+<pre><code>&gt; use mysql;
+&gt; create user &apos;test_user&apos;@&apos;%&apos; identified by &apos;test_user&apos;;
+&gt; grant all privileges on *.* to &apos;test_user&apos;@&apos;%&apos; identified by &apos;test_user&apos;;
+&gt; flush privileges;
+</code></pre><p>####2.4 重新启动mysql</p>
+<pre><code>&gt; /etc/init.d/mysqld restart
+</code></pre><p>####2.5 centos 默认是不开放端口的，所以需要开放3306端口</p>
+<pre><code>&gt; /sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
+&gt; /etc/rc.d/init.d/iptables save
+</code></pre><p>至此，这样就可以从外部访问mysql了。</p>
+
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/12/python-import-机制/" itemprop="url">
                   python import 机制
                 </a>
@@ -644,7 +784,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">3</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -652,7 +792,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -661,7 +801,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
