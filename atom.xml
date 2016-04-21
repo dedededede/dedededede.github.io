@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-04-17T13:43:19.000Z</updated>
+  <updated>2016-04-21T14:17:39.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,93 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CentOS 6.5 安装mysql 5.7.9</title>
+    <link href="http://yoursite.com/2016/04/21/CentOS-6-5-%E5%AE%89%E8%A3%85mysql-5-7-9/"/>
+    <id>http://yoursite.com/2016/04/21/CentOS-6-5-安装mysql-5-7-9/</id>
+    <published>2016-04-21T13:20:59.000Z</published>
+    <updated>2016-04-21T14:17:39.000Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;1-准备工作&quot;&gt;&lt;a href=&quot;#1-准备工作&quot; class=&quot;headerlink&quot; title=&quot;1.准备工作&quot;&gt;&lt;/a&gt;1.准备工作&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;&amp;gt; wget http://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.9.tar.gz
+&amp;gt; wget http://www.boost.org/users/download/
+
+安装之前最好检查一下是否已安装了mysql和boost
+&amp;gt; rpm -qa | grep mysql   //查看系统自带mysql
+&amp;gt; yum -y remove mysql-*   //卸载mysql
+&amp;gt; rpm -e --nodeps mysql-5.1.73-3.el6_5.x86_64 //卸载mysql
+&amp;gt; rpm -qa | grep boost    //查看系统自带boost
+&amp;gt; yum -y remove boost-*   //卸载boost
+&amp;gt; rpm -e --nodeps boost-filesystem-1.41.0-11.el6_1.2.x86_64 //卸载boost
+
+然后安装其它得依赖包：
+
+&amp;gt; yum install gcc gcc-c++ ncurses ncurses-devel bison libgcrypt cmake
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;2-准备安装&quot;&gt;&lt;a href=&quot;#2-准备安装&quot; class=&quot;headerlink&quot; title=&quot;2.准备安装&quot;&gt;&lt;/a&gt;2.准备安装&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;首先将boost库解压出来
+&amp;gt; tar -zxvf boost_1_59_0.tar.gz
+然后拷贝到一个目录中
+&amp;gt; mv boost_1_59_0 /usr/local/boost
+注：如果不想安装boost的话，那么在编译mysql的时候指定DDOWNLOAD_BOOST=1
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;3-然后创建用户组以及用户&quot;&gt;&lt;a href=&quot;#3-然后创建用户组以及用户&quot; class=&quot;headerlink&quot; title=&quot;3.然后创建用户组以及用户&quot;&gt;&lt;/a&gt;3.然后创建用户组以及用户&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;&amp;gt; cat /etc/group | grep mysql     //查看是否存在mysql用户组
+&amp;gt; cat /etc/passwd | grep mysql    //查看是否存在mysql用户
+&amp;gt; groupadd mysql                  //创建用户组
+&amp;gt; useradd -r -g mysql mysql       //创建用户
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;4-编译mysql&quot;&gt;&lt;a href=&quot;#4-编译mysql&quot; class=&quot;headerlink&quot; title=&quot;4.编译mysql&quot;&gt;&lt;/a&gt;4.编译mysql&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;&amp;gt; tar -xzvf mysql-5.7.9.tar.gz 
+&amp;gt; cd mysql-5.7.9
+
+使用cmake和make命令来进行编译
+&amp;gt; cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DMYSQL_DATADIR=/usr/local/mysql/data -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DMYSQL_TCP_PORT=3306 -DMYSQL_USER=mysql -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_ARCHIVE_STORAGE_ENGINE=1 -DWITH_BLACKHOLE_STORAGE_ENGINE=1 -DWITH_MEMORY_STORAGE_ENGINE=1 -DENABLE_DOWNLOADS=1 -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/usr/local/boost
+&amp;gt; make
+&amp;gt; make install
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;5-创建mysql日志文件夹和pid文件夹&quot;&gt;&lt;a href=&quot;#5-创建mysql日志文件夹和pid文件夹&quot; class=&quot;headerlink&quot; title=&quot;5.创建mysql日志文件夹和pid文件夹&quot;&gt;&lt;/a&gt;5.创建mysql日志文件夹和pid文件夹&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;&amp;gt; mkdir /usr/local/mysql/logs
+&amp;gt; mkdir /usr/local/mysql/pids
+&amp;gt; chown -R mysql:mysql /usr/local/mysql  //需要root
+
+随后，我们需要配置/etc/my.cnf文件：
+&amp;gt; vim /etc/my.cnf
+然后写入参数，最终如下；
+log-error=/usr/local/mysql/logs/mysqld.log
+pid-file=/usr/local/mysql/pids/mysqld.pid
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;6-初始化mysql&quot;&gt;&lt;a href=&quot;#6-初始化mysql&quot; class=&quot;headerlink&quot; title=&quot;6.初始化mysql&quot;&gt;&lt;/a&gt;6.初始化mysql&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;&amp;gt; cp support-files/mysql.server /etc/init.d/mysqld
+&amp;gt; chmod a+x /etc/init.d/mysqld //需要root权限
+然后将mysql添加到环境变量，修改/etc/profile文件
+&amp;gt; vim /etc/profile   //需要root
+
+在文件的最后面加入
+export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
+最后执行 
+&amp;gt; source /etc/profile
+
+随后我们也需要多数据库进行初始化操作。自 mysql5.7 开始，初始化系统表不再使用 mysql_install_db 工具, 而是使用 mysqld –initialize-insecure –user=mysql , 其中 –initialize 表示默认生成一个安全的密码, –initialize-insecure 表示不生成密码, 密码为空
+
+&amp;gt; mysqld --initialize-insecure --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data
+现在可以启动mysql 服务器：
+
+&amp;gt; chkconfig mysqld on
+最后我们将root密码修改一下：
+
+&amp;gt; mysql -u root
+&amp;gt; mysql &amp;gt; use mysql;
+&amp;gt; mysql &amp;gt; update user set authentication_string=password(&amp;apos;123456&amp;apos;) where user=&amp;apos;root&amp;apos; and Host = &amp;apos;localhost&amp;apos;;
+&amp;gt; mysql &amp;gt; create user &amp;apos;test_user&amp;apos;@&amp;apos;%&amp;apos; identified by &amp;apos;test_user&amp;apos;;
+&amp;gt; mysql &amp;gt; grant all privileges on *.* to &amp;apos;test_user&amp;apos;@&amp;apos;%&amp;apos; identified by &amp;apos;test_user&amp;apos;;
+&amp;gt; mysql &amp;gt; flush privileges;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;7-开放3306端口&quot;&gt;&lt;a href=&quot;#7-开放3306端口&quot; class=&quot;headerlink&quot; title=&quot;7.开放3306端口&quot;&gt;&lt;/a&gt;7.开放3306端口&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;&amp;gt; /sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
+&amp;gt; /etc/rc.d/init.d/iptables save
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1-准备工作&quot;&gt;&lt;a href=&quot;#1-准备工作&quot; class=&quot;headerlink&quot; title=&quot;1.准备工作&quot;&gt;&lt;/a&gt;1.准备工作&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;&amp;gt; wget http://cdn.mysql.com//Downloads/MySQ
+    
+    </summary>
+    
+      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
+    
+    
+      <category term="mysql" scheme="http://yoursite.com/tags/mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>CentOS中搭建mysql5.1</title>

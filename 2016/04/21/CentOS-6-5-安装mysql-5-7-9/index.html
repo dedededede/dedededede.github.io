@@ -59,28 +59,31 @@
 
 
 
-<meta name="description" content="解释一下SQL里面的null答案：null代表一个unknown的值或者一个不存在的值
-如何用SQL判断一个值是不是null?答案：可以用is null来判断一个值是不是null
-所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null答案：正确
-所有与null得比较运算都返回unknown正确吗？答案：正确
-(unknown or true) = tr">
+<meta name="description" content="1.准备工作&amp;gt; wget http://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.9.tar.gz
+&amp;gt; wget http://www.boost.org/users/download/
+
+安装之前最好检查一下是否已安装了mysql和boost
+&amp;gt; rpm -qa | grep mysql   //查看系统自带mysql
+&amp;gt;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sql中的unkonw">
-<meta property="og:url" content="http://yoursite.com/2016/04/05/sql中的unkonw/index.html">
+<meta property="og:title" content="CentOS 6.5 安装mysql 5.7.9">
+<meta property="og:url" content="http://yoursite.com/2016/04/21/CentOS-6-5-安装mysql-5-7-9/index.html">
 <meta property="og:site_name" content="一直在路上">
-<meta property="og:description" content="解释一下SQL里面的null答案：null代表一个unknown的值或者一个不存在的值
-如何用SQL判断一个值是不是null?答案：可以用is null来判断一个值是不是null
-所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null答案：正确
-所有与null得比较运算都返回unknown正确吗？答案：正确
-(unknown or true) = tr">
-<meta property="og:updated_time" content="2016-04-06T15:02:32.000Z">
+<meta property="og:description" content="1.准备工作&amp;gt; wget http://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.9.tar.gz
+&amp;gt; wget http://www.boost.org/users/download/
+
+安装之前最好检查一下是否已安装了mysql和boost
+&amp;gt; rpm -qa | grep mysql   //查看系统自带mysql
+&amp;gt;">
+<meta property="og:updated_time" content="2016-04-21T14:17:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sql中的unkonw">
-<meta name="twitter:description" content="解释一下SQL里面的null答案：null代表一个unknown的值或者一个不存在的值
-如何用SQL判断一个值是不是null?答案：可以用is null来判断一个值是不是null
-所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null答案：正确
-所有与null得比较运算都返回unknown正确吗？答案：正确
-(unknown or true) = tr">
+<meta name="twitter:title" content="CentOS 6.5 安装mysql 5.7.9">
+<meta name="twitter:description" content="1.准备工作&amp;gt; wget http://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.9.tar.gz
+&amp;gt; wget http://www.boost.org/users/download/
+
+安装之前最好检查一下是否已安装了mysql和boost
+&amp;gt; rpm -qa | grep mysql   //查看系统自带mysql
+&amp;gt;">
 
 
 
@@ -98,7 +101,7 @@
   };
 </script>
 
-  <title> sql中的unkonw | 一直在路上 </title>
+  <title> CentOS 6.5 安装mysql 5.7.9 | 一直在路上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -238,7 +241,7 @@
             
             
               
-                sql中的unkonw
+                CentOS 6.5 安装mysql 5.7.9
               
             
           </h1>
@@ -250,8 +253,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-05T21:18:22+08:00" content="2016-04-05">
-              2016-04-05
+            <time itemprop="dateCreated" datetime="2016-04-21T21:20:59+08:00" content="2016-04-21">
+              2016-04-21
             </time>
           </span>
 
@@ -280,8 +283,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/05/sql中的unkonw/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/05/sql中的unkonw/" itemprop="commentsCount"></span>
+                <a href="/2016/04/21/CentOS-6-5-安装mysql-5-7-9/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/21/CentOS-6-5-安装mysql-5-7-9/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -303,24 +306,72 @@
       
 
       
-        <ol>
-<li>解释一下SQL里面的null<br>答案：null代表一个unknown的值或者一个不存在的值</li>
-<li>如何用SQL判断一个值是不是null?<br>答案：可以用is null来判断一个值是不是null</li>
-<li>所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null<br>答案：正确</li>
-<li>所有与null得比较运算都返回unknown正确吗？<br>答案：正确</li>
-<li>(unknown or true) = true正确吗？<br>答案：正确，进行的是或运算，就算不知道unknown不知道真假，但是or后面的true为真，所以最终结果为true。</li>
-<li>(unknown or false) = unknown正确吗？<br>答案：正确，</li>
-<li>(unknown or unknown) = unknown正确吗？<br>答案：正确</li>
-<li>(true and unknown) = unknown正确吗？<br>答案：正确</li>
-<li>(false and unknown) = false正确吗？<br>答案：正确</li>
-<li>(unknown and unknown) = unknown正确吗？<br>答案：正确</li>
-<li>(not unknown) = unknown 正确吗？<br>答案：正确</li>
-</ol>
-<p>刚开始看了以上面试题，觉得一点都不会，后来查询了mysql手册，顿时大唔。<br>对于SQL的新手，NULL值的概念常常会造成混淆，他们常认为NULL是与空字符串’’相同的事。<br>为了进行NULL处理，可使用IS NULL和IS NOT NULL操作符以及IFNULL()函数。</p>
-<p>在SQL中，NULL值与任何其它值的比较（即使是NULL）永远不会为“真”。包含NULL的表达式总是会导出NULL值，除非在关于操作符的文档中以及表达式的函数中作了其他规定。<br>后来又查看了<a href="http://blog.sina.com.cn/gujinku" target="_blank" rel="external">http://blog.sina.com.cn/gujinku</a> 这篇文章，下面是其中的一段话，</p>
-<p>因为NULL当UNKNOWN来理解，因此，当值为NULL时，它既有可能是FALSE也有可能是TRUE。如果计算结果只有一种可能，则取该种可能；如果计算结果既有可能是FALSE，也有可能是TRUE，那么结果便为NULL。例如，NOT NULL，其结果也有两种可能，因此NOT NULL的结果是NULL。再例如，NULL AND TRUE，则其结果也有两种可能，因此NULL AND TRUE的结果是NULL。但是，NULL OR TRUE，或是NULL AND FALSE，前者结果为TRUE，单是一个TRUE出现，便足以知道结果为TRUE；后者结果为FALSE，单是一个FALSE出现，便足以知道结果为FALSE。这是OR和AND的特性决定的。</p>
-<p>现在回过头来，看上面的问题，是不是觉得就很容易理解了。</p>
+        <h3 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h3><pre><code>&gt; wget http://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.9.tar.gz
+&gt; wget http://www.boost.org/users/download/
 
+安装之前最好检查一下是否已安装了mysql和boost
+&gt; rpm -qa | grep mysql   //查看系统自带mysql
+&gt; yum -y remove mysql-*   //卸载mysql
+&gt; rpm -e --nodeps mysql-5.1.73-3.el6_5.x86_64 //卸载mysql
+&gt; rpm -qa | grep boost    //查看系统自带boost
+&gt; yum -y remove boost-*   //卸载boost
+&gt; rpm -e --nodeps boost-filesystem-1.41.0-11.el6_1.2.x86_64 //卸载boost
+
+然后安装其它得依赖包：
+
+&gt; yum install gcc gcc-c++ ncurses ncurses-devel bison libgcrypt cmake
+</code></pre><h3 id="2-准备安装"><a href="#2-准备安装" class="headerlink" title="2.准备安装"></a>2.准备安装</h3><pre><code>首先将boost库解压出来
+&gt; tar -zxvf boost_1_59_0.tar.gz
+然后拷贝到一个目录中
+&gt; mv boost_1_59_0 /usr/local/boost
+注：如果不想安装boost的话，那么在编译mysql的时候指定DDOWNLOAD_BOOST=1
+</code></pre><h3 id="3-然后创建用户组以及用户"><a href="#3-然后创建用户组以及用户" class="headerlink" title="3.然后创建用户组以及用户"></a>3.然后创建用户组以及用户</h3><pre><code>&gt; cat /etc/group | grep mysql     //查看是否存在mysql用户组
+&gt; cat /etc/passwd | grep mysql    //查看是否存在mysql用户
+&gt; groupadd mysql                  //创建用户组
+&gt; useradd -r -g mysql mysql       //创建用户
+</code></pre><h3 id="4-编译mysql"><a href="#4-编译mysql" class="headerlink" title="4.编译mysql"></a>4.编译mysql</h3><pre><code>&gt; tar -xzvf mysql-5.7.9.tar.gz 
+&gt; cd mysql-5.7.9
+
+使用cmake和make命令来进行编译
+&gt; cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DMYSQL_DATADIR=/usr/local/mysql/data -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DMYSQL_TCP_PORT=3306 -DMYSQL_USER=mysql -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_ARCHIVE_STORAGE_ENGINE=1 -DWITH_BLACKHOLE_STORAGE_ENGINE=1 -DWITH_MEMORY_STORAGE_ENGINE=1 -DENABLE_DOWNLOADS=1 -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/usr/local/boost
+&gt; make
+&gt; make install
+</code></pre><h3 id="5-创建mysql日志文件夹和pid文件夹"><a href="#5-创建mysql日志文件夹和pid文件夹" class="headerlink" title="5.创建mysql日志文件夹和pid文件夹"></a>5.创建mysql日志文件夹和pid文件夹</h3><pre><code>&gt; mkdir /usr/local/mysql/logs
+&gt; mkdir /usr/local/mysql/pids
+&gt; chown -R mysql:mysql /usr/local/mysql  //需要root
+
+随后，我们需要配置/etc/my.cnf文件：
+&gt; vim /etc/my.cnf
+然后写入参数，最终如下；
+log-error=/usr/local/mysql/logs/mysqld.log
+pid-file=/usr/local/mysql/pids/mysqld.pid
+</code></pre><h3 id="6-初始化mysql"><a href="#6-初始化mysql" class="headerlink" title="6.初始化mysql"></a>6.初始化mysql</h3><pre><code>&gt; cp support-files/mysql.server /etc/init.d/mysqld
+&gt; chmod a+x /etc/init.d/mysqld //需要root权限
+然后将mysql添加到环境变量，修改/etc/profile文件
+&gt; vim /etc/profile   //需要root
+
+在文件的最后面加入
+export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
+最后执行 
+&gt; source /etc/profile
+
+随后我们也需要多数据库进行初始化操作。自 mysql5.7 开始，初始化系统表不再使用 mysql_install_db 工具, 而是使用 mysqld –initialize-insecure –user=mysql , 其中 –initialize 表示默认生成一个安全的密码, –initialize-insecure 表示不生成密码, 密码为空
+
+&gt; mysqld --initialize-insecure --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data
+现在可以启动mysql 服务器：
+
+&gt; chkconfig mysqld on
+最后我们将root密码修改一下：
+
+&gt; mysql -u root
+&gt; mysql &gt; use mysql;
+&gt; mysql &gt; update user set authentication_string=password(&apos;123456&apos;) where user=&apos;root&apos; and Host = &apos;localhost&apos;;
+&gt; mysql &gt; create user &apos;test_user&apos;@&apos;%&apos; identified by &apos;test_user&apos;;
+&gt; mysql &gt; grant all privileges on *.* to &apos;test_user&apos;@&apos;%&apos; identified by &apos;test_user&apos;;
+&gt; mysql &gt; flush privileges;
+</code></pre><h3 id="7-开放3306端口"><a href="#7-开放3306端口" class="headerlink" title="7.开放3306端口"></a>7.开放3306端口</h3><pre><code>&gt; /sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
+&gt; /etc/rc.d/init.d/iptables save
+</code></pre>
       
     </div>
     
@@ -349,17 +400,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/02/python中的True-False/" rel="next" title="python中的True,False">
-                <i class="fa fa-chevron-left"></i> python中的True,False
+              <a href="/2016/04/17/CentOS中搭建mysql5-1/" rel="next" title="CentOS中搭建mysql5.1">
+                <i class="fa fa-chevron-left"></i> CentOS中搭建mysql5.1
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/12/python-import-机制/" rel="prev" title="python import 机制">
-                python import 机制 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -408,8 +455,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/05/sql中的unkonw/"
-           data-title="sql中的unkonw" data-url="http://yoursite.com/2016/04/05/sql中的unkonw/">
+      <div class="ds-thread" data-thread-key="2016/04/21/CentOS-6-5-安装mysql-5-7-9/"
+           data-title="CentOS 6.5 安装mysql 5.7.9" data-url="http://yoursite.com/2016/04/21/CentOS-6-5-安装mysql-5-7-9/">
       </div>
     
   </div>
@@ -509,7 +556,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-准备工作"><span class="nav-number">1.</span> <span class="nav-text">1.准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-准备安装"><span class="nav-number">2.</span> <span class="nav-text">2.准备安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-然后创建用户组以及用户"><span class="nav-number">3.</span> <span class="nav-text">3.然后创建用户组以及用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-编译mysql"><span class="nav-number">4.</span> <span class="nav-text">4.编译mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-创建mysql日志文件夹和pid文件夹"><span class="nav-number">5.</span> <span class="nav-text">5.创建mysql日志文件夹和pid文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-初始化mysql"><span class="nav-number">6.</span> <span class="nav-text">6.初始化mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-开放3306端口"><span class="nav-number">7.</span> <span class="nav-text">7.开放3306端口</span></a></li></ol></div>
             
           </div>
         </section>
