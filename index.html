@@ -334,6 +334,10 @@
 随后，我们需要配置/etc/my.cnf文件：
 &gt; vim /etc/my.cnf
 然后写入参数，最终如下；
+[mysqld]
+datadir=/usr/local/mysql/data
+socket=/usr/local/mysql/mysql.sock
+[mysql_safe]
 log-error=/usr/local/mysql/logs/mysqld.log
 pid-file=/usr/local/mysql/pids/mysqld.pid
 </code></pre><h3 id="6-初始化mysql"><a href="#6-初始化mysql" class="headerlink" title="6.初始化mysql"></a>6.初始化mysql</h3><pre><code>&gt; cp support-files/mysql.server /etc/init.d/mysqld
