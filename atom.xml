@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-04-21T15:05:26.000Z</updated>
+  <updated>2016-05-08T01:00:30.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,51 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mysql 配置主从</title>
+    <link href="http://yoursite.com/2016/05/08/mysql-%E9%85%8D%E7%BD%AE%E4%B8%BB%E4%BB%8E/"/>
+    <id>http://yoursite.com/2016/05/08/mysql-配置主从/</id>
+    <published>2016-05-08T00:31:21.000Z</published>
+    <updated>2016-05-08T01:00:30.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot; title=&quot;环境准备&quot;&gt;&lt;/a&gt;环境准备&lt;/h2&gt;&lt;p&gt;1.1 分别在主从服务器上安装相同版本的&lt;a href=&quot;http://responseip.com/2016/04/21/CentOS-6-5-%E5%AE%89%E8%A3%85mysql-5-7-9/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;mysql&lt;/a&gt;&lt;br&gt;1.2 修改主服务器的配置文件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt; vim /etc/my.cnf
+&amp;gt; [mysqld]
+&amp;gt; log-bin = mysql-bin //启用二进制文件
+&amp;gt; server-id = 44  //服务器ID，唯一ID
+
+然后重启mysql服务
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;1.3 修改从服务器的配置文件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;gt; vim /etc/my.cnf
+&amp;gt; [mysqld]
+&amp;gt; log-bin = mysql-bin  //启用二进制文件
+&amp;gt; server-id = 45  //这里采用的是机器的IP
+
+然后重启mysql服务
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;建立主从同步账号&quot;&gt;&lt;a href=&quot;#建立主从同步账号&quot; class=&quot;headerlink&quot; title=&quot;建立主从同步账号&quot;&gt;&lt;/a&gt;建立主从同步账号&lt;/h2&gt;&lt;p&gt;   在主服务器上执行&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;mysql -h127.0.0.1 -uroot -p’’&lt;br&gt;mysql&amp;gt; grant replcation slave on ‘&lt;em&gt;.&lt;/em&gt;‘ to ‘账号’@’%’ identified by ‘密码’;&lt;br&gt;mysql&amp;gt; flush privileges;&lt;br&gt;mysql&amp;gt; show master status;&lt;br&gt;     +——————+———-+————–+——————+&lt;br&gt;   | File             | Position | Binlog_Do_DB | Binlog_Ignore_DB |&lt;br&gt;   +——————+———-+————–+——————+&lt;br&gt;   | mysql-bin.000001 |      150 |              |                  |&lt;br&gt;   +——————+———-+————–+——————+&lt;br&gt;   1 row in set (0.00 sec)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;   记录下来FIle和Position&lt;/p&gt;
+&lt;h2 id=&quot;配置从服务器&quot;&gt;&lt;a href=&quot;#配置从服务器&quot; class=&quot;headerlink&quot; title=&quot;配置从服务器&quot;&gt;&lt;/a&gt;配置从服务器&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;mysql&amp;gt; change master to master_host=’主服务器IP’,master_user=’主从同步账号’,master_password=’密码’,master_log_file=’mysql-bin.000001’,master_log_pos=150;&lt;br&gt;mysql&amp;gt; start slave;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;验证&quot;&gt;&lt;a href=&quot;#验证&quot; class=&quot;headerlink&quot; title=&quot;验证&quot;&gt;&lt;/a&gt;验证&lt;/h2&gt;&lt;p&gt;  在主服务器上执行一条sql，去从服务器上查看一下是否执行成功&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;环境准备&quot;&gt;&lt;a href=&quot;#环境准备&quot; class=&quot;headerlink&quot; title=&quot;环境准备&quot;&gt;&lt;/a&gt;环境准备&lt;/h2&gt;&lt;p&gt;1.1 分别在主从服务器上安装相同版本的&lt;a href=&quot;http://responseip.com/2016/04/21/
+    
+    </summary>
+    
+      <category term="mysql" scheme="http://yoursite.com/categories/mysql/"/>
+    
+    
+      <category term="mysql" scheme="http://yoursite.com/tags/mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>CentOS 6.5 安装mysql 5.7.9</title>

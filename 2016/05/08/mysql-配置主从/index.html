@@ -59,31 +59,43 @@
 
 
 
-<meta name="description" content="1.准备工作&amp;gt; wget http://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.9.tar.gz
-&amp;gt; wget http://www.boost.org/users/download/
+<meta name="description" content="环境准备1.1 分别在主从服务器上安装相同版本的mysql1.2 修改主服务器的配置文件
+&amp;gt; vim /etc/my.cnf
+&amp;gt; [mysqld]
+&amp;gt; log-bin = mysql-bin //启用二进制文件
+&amp;gt; server-id = 44  //服务器ID，唯一ID
 
-安装之前最好检查一下是否已安装了mysql和boost
-&amp;gt; rpm -qa | grep mysql   //查看系统自带mysql
-&amp;gt;">
+然后重启mysql服务
+1.3 修改从服务器的配置文件
+&amp;gt; vim /etc/my.cnf
+&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS 6.5 安装mysql 5.7.9">
-<meta property="og:url" content="http://yoursite.com/2016/04/21/CentOS-6-5-安装mysql-5-7-9/index.html">
+<meta property="og:title" content="mysql 配置主从">
+<meta property="og:url" content="http://yoursite.com/2016/05/08/mysql-配置主从/index.html">
 <meta property="og:site_name" content="一直在路上">
-<meta property="og:description" content="1.准备工作&amp;gt; wget http://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.9.tar.gz
-&amp;gt; wget http://www.boost.org/users/download/
+<meta property="og:description" content="环境准备1.1 分别在主从服务器上安装相同版本的mysql1.2 修改主服务器的配置文件
+&amp;gt; vim /etc/my.cnf
+&amp;gt; [mysqld]
+&amp;gt; log-bin = mysql-bin //启用二进制文件
+&amp;gt; server-id = 44  //服务器ID，唯一ID
 
-安装之前最好检查一下是否已安装了mysql和boost
-&amp;gt; rpm -qa | grep mysql   //查看系统自带mysql
-&amp;gt;">
-<meta property="og:updated_time" content="2016-04-21T15:05:26.000Z">
+然后重启mysql服务
+1.3 修改从服务器的配置文件
+&amp;gt; vim /etc/my.cnf
+&amp;">
+<meta property="og:updated_time" content="2016-05-08T01:00:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS 6.5 安装mysql 5.7.9">
-<meta name="twitter:description" content="1.准备工作&amp;gt; wget http://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.9.tar.gz
-&amp;gt; wget http://www.boost.org/users/download/
+<meta name="twitter:title" content="mysql 配置主从">
+<meta name="twitter:description" content="环境准备1.1 分别在主从服务器上安装相同版本的mysql1.2 修改主服务器的配置文件
+&amp;gt; vim /etc/my.cnf
+&amp;gt; [mysqld]
+&amp;gt; log-bin = mysql-bin //启用二进制文件
+&amp;gt; server-id = 44  //服务器ID，唯一ID
 
-安装之前最好检查一下是否已安装了mysql和boost
-&amp;gt; rpm -qa | grep mysql   //查看系统自带mysql
-&amp;gt;">
+然后重启mysql服务
+1.3 修改从服务器的配置文件
+&amp;gt; vim /etc/my.cnf
+&amp;">
 
 
 
@@ -101,7 +113,7 @@
   };
 </script>
 
-  <title> CentOS 6.5 安装mysql 5.7.9 | 一直在路上 </title>
+  <title> mysql 配置主从 | 一直在路上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -241,7 +253,7 @@
             
             
               
-                CentOS 6.5 安装mysql 5.7.9
+                mysql 配置主从
               
             
           </h1>
@@ -253,8 +265,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-21T21:20:59+08:00" content="2016-04-21">
-              2016-04-21
+            <time itemprop="dateCreated" datetime="2016-05-08T08:31:21+08:00" content="2016-05-08">
+              2016-05-08
             </time>
           </span>
 
@@ -283,8 +295,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/21/CentOS-6-5-安装mysql-5-7-9/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/21/CentOS-6-5-安装mysql-5-7-9/" itemprop="commentsCount"></span>
+                <a href="/2016/05/08/mysql-配置主从/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/08/mysql-配置主从/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -306,76 +318,30 @@
       
 
       
-        <h3 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h3><pre><code>&gt; wget http://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.9.tar.gz
-&gt; wget http://www.boost.org/users/download/
+        <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>1.1 分别在主从服务器上安装相同版本的<a href="http://responseip.com/2016/04/21/CentOS-6-5-%E5%AE%89%E8%A3%85mysql-5-7-9/" target="_blank" rel="external">mysql</a><br>1.2 修改主服务器的配置文件</p>
+<pre><code>&gt; vim /etc/my.cnf
+&gt; [mysqld]
+&gt; log-bin = mysql-bin //启用二进制文件
+&gt; server-id = 44  //服务器ID，唯一ID
 
-安装之前最好检查一下是否已安装了mysql和boost
-&gt; rpm -qa | grep mysql   //查看系统自带mysql
-&gt; yum -y remove mysql-*   //卸载mysql
-&gt; rpm -e --nodeps mysql-5.1.73-3.el6_5.x86_64 //卸载mysql
-&gt; rpm -qa | grep boost    //查看系统自带boost
-&gt; yum -y remove boost-*   //卸载boost
-&gt; rpm -e --nodeps boost-filesystem-1.41.0-11.el6_1.2.x86_64 //卸载boost
+然后重启mysql服务
+</code></pre><p>1.3 修改从服务器的配置文件</p>
+<pre><code>&gt; vim /etc/my.cnf
+&gt; [mysqld]
+&gt; log-bin = mysql-bin  //启用二进制文件
+&gt; server-id = 45  //这里采用的是机器的IP
 
-然后安装其它得依赖包：
+然后重启mysql服务
+</code></pre><h2 id="建立主从同步账号"><a href="#建立主从同步账号" class="headerlink" title="建立主从同步账号"></a>建立主从同步账号</h2><p>   在主服务器上执行</p>
+<blockquote>
+<p>mysql -h127.0.0.1 -uroot -p’’<br>mysql&gt; grant replcation slave on ‘<em>.</em>‘ to ‘账号’@’%’ identified by ‘密码’;<br>mysql&gt; flush privileges;<br>mysql&gt; show master status;<br>     +——————+———-+————–+——————+<br>   | File             | Position | Binlog_Do_DB | Binlog_Ignore_DB |<br>   +——————+———-+————–+——————+<br>   | mysql-bin.000001 |      150 |              |                  |<br>   +——————+———-+————–+——————+<br>   1 row in set (0.00 sec)</p>
+</blockquote>
+<p>   记录下来FIle和Position</p>
+<h2 id="配置从服务器"><a href="#配置从服务器" class="headerlink" title="配置从服务器"></a>配置从服务器</h2><blockquote>
+<p>mysql&gt; change master to master_host=’主服务器IP’,master_user=’主从同步账号’,master_password=’密码’,master_log_file=’mysql-bin.000001’,master_log_pos=150;<br>mysql&gt; start slave;</p>
+</blockquote>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>  在主服务器上执行一条sql，去从服务器上查看一下是否执行成功</p>
 
-&gt; yum install gcc gcc-c++ ncurses ncurses-devel bison libgcrypt cmake
-</code></pre><h3 id="2-准备安装"><a href="#2-准备安装" class="headerlink" title="2.准备安装"></a>2.准备安装</h3><pre><code>首先将boost库解压出来
-&gt; tar -zxvf boost_1_59_0.tar.gz
-然后拷贝到一个目录中
-&gt; mv boost_1_59_0 /usr/local/boost
-注：如果不想安装boost的话，那么在编译mysql的时候指定DDOWNLOAD_BOOST=1
-</code></pre><h3 id="3-然后创建用户组以及用户"><a href="#3-然后创建用户组以及用户" class="headerlink" title="3.然后创建用户组以及用户"></a>3.然后创建用户组以及用户</h3><pre><code>&gt; cat /etc/group | grep mysql     //查看是否存在mysql用户组
-&gt; cat /etc/passwd | grep mysql    //查看是否存在mysql用户
-&gt; groupadd mysql                  //创建用户组
-&gt; useradd -r -g mysql mysql       //创建用户
-</code></pre><h3 id="4-编译mysql"><a href="#4-编译mysql" class="headerlink" title="4.编译mysql"></a>4.编译mysql</h3><pre><code>&gt; tar -xzvf mysql-5.7.9.tar.gz 
-&gt; cd mysql-5.7.9
-
-使用cmake和make命令来进行编译
-&gt; cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DMYSQL_DATADIR=/usr/local/mysql/data -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DMYSQL_TCP_PORT=3306 -DMYSQL_USER=mysql -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_ARCHIVE_STORAGE_ENGINE=1 -DWITH_BLACKHOLE_STORAGE_ENGINE=1 -DWITH_MEMORY_STORAGE_ENGINE=1 -DENABLE_DOWNLOADS=1 -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/usr/local/boost
-&gt; make
-&gt; make install
-</code></pre><h3 id="5-创建mysql日志文件夹和pid文件夹"><a href="#5-创建mysql日志文件夹和pid文件夹" class="headerlink" title="5.创建mysql日志文件夹和pid文件夹"></a>5.创建mysql日志文件夹和pid文件夹</h3><pre><code>&gt; mkdir /usr/local/mysql/logs
-&gt; mkdir /usr/local/mysql/pids
-&gt; chown -R mysql:mysql /usr/local/mysql  //需要root
-
-随后，我们需要配置/etc/my.cnf文件：
-&gt; vim /etc/my.cnf
-然后写入参数，最终如下；
-[mysqld]
-datadir=/usr/local/mysql/data
-socket=/usr/local/mysql/mysql.sock
-[mysql_safe]
-log-error=/usr/local/mysql/logs/mysqld.log
-pid-file=/usr/local/mysql/pids/mysqld.pid
-</code></pre><h3 id="6-初始化mysql"><a href="#6-初始化mysql" class="headerlink" title="6.初始化mysql"></a>6.初始化mysql</h3><pre><code>&gt; cp support-files/mysql.server /etc/init.d/mysqld
-&gt; chmod a+x /etc/init.d/mysqld //需要root权限
-然后将mysql添加到环境变量，修改/etc/profile文件
-&gt; vim /etc/profile   //需要root
-
-在文件的最后面加入
-export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
-最后执行 
-&gt; source /etc/profile
-
-随后我们也需要多数据库进行初始化操作。自 mysql5.7 开始，初始化系统表不再使用 mysql_install_db 工具, 而是使用 mysqld –initialize-insecure –user=mysql , 其中 –initialize 表示默认生成一个安全的密码, –initialize-insecure 表示不生成密码, 密码为空
-
-&gt; mysqld --initialize-insecure --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data
-现在可以启动mysql 服务器：
-
-&gt; chkconfig mysqld on
-最后我们将root密码修改一下：
-
-&gt; mysql -u root
-&gt; mysql &gt; use mysql;
-&gt; mysql &gt; update user set authentication_string=password(&apos;123456&apos;) where user=&apos;root&apos; and Host = &apos;localhost&apos;;
-&gt; mysql &gt; create user &apos;test_user&apos;@&apos;%&apos; identified by &apos;test_user&apos;;
-&gt; mysql &gt; grant all privileges on *.* to &apos;test_user&apos;@&apos;%&apos; identified by &apos;test_user&apos;;
-&gt; mysql &gt; flush privileges;
-</code></pre><h3 id="7-开放3306端口"><a href="#7-开放3306端口" class="headerlink" title="7.开放3306端口"></a>7.开放3306端口</h3><pre><code>&gt; /sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
-&gt; /etc/rc.d/init.d/iptables save
-</code></pre>
       
     </div>
     
@@ -404,17 +370,13 @@ export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/17/CentOS中搭建mysql5-1/" rel="next" title="CentOS中搭建mysql5.1">
-                <i class="fa fa-chevron-left"></i> CentOS中搭建mysql5.1
+              <a href="/2016/04/21/CentOS-6-5-安装mysql-5-7-9/" rel="next" title="CentOS 6.5 安装mysql 5.7.9">
+                <i class="fa fa-chevron-left"></i> CentOS 6.5 安装mysql 5.7.9
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/05/08/mysql-配置主从/" rel="prev" title="mysql 配置主从">
-                mysql 配置主从 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -463,8 +425,8 @@ export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/21/CentOS-6-5-安装mysql-5-7-9/"
-           data-title="CentOS 6.5 安装mysql 5.7.9" data-url="http://yoursite.com/2016/04/21/CentOS-6-5-安装mysql-5-7-9/">
+      <div class="ds-thread" data-thread-key="2016/05/08/mysql-配置主从/"
+           data-title="mysql 配置主从" data-url="http://yoursite.com/2016/05/08/mysql-配置主从/">
       </div>
     
   </div>
@@ -564,7 +526,7 @@ export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-准备工作"><span class="nav-number">1.</span> <span class="nav-text">1.准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-准备安装"><span class="nav-number">2.</span> <span class="nav-text">2.准备安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-然后创建用户组以及用户"><span class="nav-number">3.</span> <span class="nav-text">3.然后创建用户组以及用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-编译mysql"><span class="nav-number">4.</span> <span class="nav-text">4.编译mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-创建mysql日志文件夹和pid文件夹"><span class="nav-number">5.</span> <span class="nav-text">5.创建mysql日志文件夹和pid文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-初始化mysql"><span class="nav-number">6.</span> <span class="nav-text">6.初始化mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-开放3306端口"><span class="nav-number">7.</span> <span class="nav-text">7.开放3306端口</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境准备"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立主从同步账号"><span class="nav-number">2.</span> <span class="nav-text">建立主从同步账号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置从服务器"><span class="nav-number">3.</span> <span class="nav-text">配置从服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证"><span class="nav-number">4.</span> <span class="nav-text">验证</span></a></li></ol></div>
             
           </div>
         </section>
