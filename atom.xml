@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-05-08T01:00:30.000Z</updated>
+  <updated>2016-05-15T15:01:40.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,53 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CentOS 安装redis</title>
+    <link href="http://yoursite.com/2016/05/15/CentOS-%E5%AE%89%E8%A3%85redis/"/>
+    <id>http://yoursite.com/2016/05/15/CentOS-安装redis/</id>
+    <published>2016-05-15T14:43:52.000Z</published>
+    <updated>2016-05-15T15:01:40.000Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;安装redis&quot;&gt;&lt;a href=&quot;#安装redis&quot; class=&quot;headerlink&quot; title=&quot;安装redis&quot;&gt;&lt;/a&gt;安装redis&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;wget &lt;a href=&quot;http://download.redis.io/releases/redis-3.2.0.tar.gz&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://download.redis.io/releases/redis-3.2.0.tar.gz&lt;/a&gt;&lt;br&gt;tar xvzf redis-3.2.0&lt;br&gt;cd redis-3.2.0&lt;br&gt;make&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;异常一：&quot;&gt;&lt;a href=&quot;#异常一：&quot; class=&quot;headerlink&quot; title=&quot;异常一：&quot;&gt;&lt;/a&gt;异常一：&lt;/h4&gt;&lt;p&gt;执行make的时候，出现了异常。&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;make[2]: cc: Command not found&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;异常原因：没有安装gcc&lt;br&gt;解决方案：yum install gcc-c++&lt;/p&gt;
+&lt;h4 id=&quot;异常二：&quot;&gt;&lt;a href=&quot;#异常二：&quot; class=&quot;headerlink&quot; title=&quot;异常二：&quot;&gt;&lt;/a&gt;异常二：&lt;/h4&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;zmalloc.h:51:31: error: jemalloc/jemalloc.h: No such file or directory&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;异常原因：一些编译依赖或原来编译遗留出现的问题&lt;br&gt;解决方案：make distclean。清理一下，然后再make。&lt;/p&gt;
+&lt;h4 id=&quot;异常三：&quot;&gt;&lt;a href=&quot;#异常三：&quot; class=&quot;headerlink&quot; title=&quot;异常三：&quot;&gt;&lt;/a&gt;异常三：&lt;/h4&gt;&lt;p&gt;在make成功以后，需要make test, 在make test出现异常。&lt;br&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;couldn&lt;span class=&quot;string&quot;&gt;&#39;t execute &quot;tclsh8.5&quot;: no such file or directory&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;异常原因：没有安装tcl&lt;br&gt;解决方案：yum install -y tcl。&lt;/p&gt;
+&lt;h4 id=&quot;配置&quot;&gt;&lt;a href=&quot;#配置&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h4&gt;&lt;p&gt;在make成功以后，会在src目录下多出一些可执行文件：redis-server，redis-cli等等。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;cp redis-server /usr/local/bin/&lt;br&gt;cp redis-cli /usr/local/bin/&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;然后新建目录，存放配置文件&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;mkdir /etc/redis&lt;br&gt;mkdir /var/redis&lt;br&gt;mkdir /var/redis/log&lt;br&gt;mkdir /var/redis/run&lt;br&gt;mkdir /var/redis/6379&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在redis解压根目录中找到配置文件模板，复制到如下位置。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;cp redis.conf /etc/redis/6379.conf&lt;br&gt;vim /etc/redis/6379.conf&lt;br&gt;daemonize yes&lt;br&gt;pidfile /var/redis/run/redis_6379.pid&lt;br&gt;logfile /var/redis/log/redis_6379.log&lt;br&gt;dir /var/redis/6379&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;开机启动&quot;&gt;&lt;a href=&quot;#开机启动&quot; class=&quot;headerlink&quot; title=&quot;开机启动&quot;&gt;&lt;/a&gt;开机启动&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;cp utils/redis_init_script /etc/init.d/redis_6379&lt;br&gt;vim /etc/init.d/redis&lt;em&gt;6379&lt;br&gt;pid修改成 /var/redis/run/redis&lt;/em&gt;${REDISPORT}.pid&lt;br&gt;update-rc.d redis_6379 defaults&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;安装redis&quot;&gt;&lt;a href=&quot;#安装redis&quot; class=&quot;headerlink&quot; title=&quot;安装redis&quot;&gt;&lt;/a&gt;安装redis&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;wget &lt;a href=&quot;http://download.redis.i
+    
+    </summary>
+    
+      <category term="redis" scheme="http://yoursite.com/categories/redis/"/>
+    
+    
+      <category term="redis" scheme="http://yoursite.com/tags/redis/"/>
+    
+  </entry>
   
   <entry>
     <title>mysql 配置主从</title>
