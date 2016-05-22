@@ -228,6 +228,160 @@
             
               
                 
+                <a class="post-title-link" href="/2016/05/22/CentOS中Redis-Cluster搭建/" itemprop="url">
+                  CentOS中Redis Cluster搭建
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-22T20:34:07+08:00" content="2016-05-22">
+              2016-05-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/redis/" itemprop="url" rel="index">
+                    <span itemprop="name">redis</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/22/CentOS中Redis-Cluster搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/22/CentOS中Redis-Cluster搭建/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>Redis 集群是一个提供在多个Redis间节点间共享数据的程序集。<br>Redis集群并不支持处理多个keys的命令,因为这需要在不同的节点间移动数据,从而达不到像Redis那样的性能,在高负载的情况下可能会导致不可预料的错误.<br>Redis 集群通过分区来提供一定程度的可用性,在实际环境中当某个节点宕机或者不可达的情况下继续处理命令. </p>
+<p>Redis 集群的优势:<br>自动分割数据到不同的节点上。<br>整个集群的部分节点失败或者不可达的情况下能够继续处理命令。</p>
+<h4 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h4><ol>
+<li><p>安装ruby</p>
+<blockquote>
+<p>yum install ruby</p>
+</blockquote>
+</li>
+<li><p>安装rubygems</p>
+<blockquote>
+<p>yum install rubygems</p>
+</blockquote>
+</li>
+<li><p>安装ruby的redis包</p>
+<blockquote>
+<p>gem install redis</p>
+</blockquote>
+</li>
+<li><p>下载<a href="http://download.redis.io/releases/redis-3.2.0.tar.gz" target="_blank" rel="external">redis</a><br>要下载redis 3.0 以上的版本</p>
+</li>
+</ol>
+<h4 id="安装redis-cluster"><a href="#安装redis-cluster" class="headerlink" title="安装redis cluster"></a>安装redis cluster</h4><ol>
+<li>安装redis,详细步骤请<a href="http://responseip.com/2016/05/15/CentOS-%E5%AE%89%E8%A3%85redis/" target="_blank" rel="external">参考</a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/<span class="built_in">local</span>/redis-cluster</span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/redis-cluster</span><br><span class="line">mkdir 7000</span><br><span class="line">mkdir 7001</span><br><span class="line">mkdir 7002</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>配置redis cluster</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim redis.conf</span><br><span class="line">port 7000</span><br><span class="line">daemonize yes</span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes.conf</span><br><span class="line">cluster-node-timeout 5000</span><br><span class="line">appendonly yes</span><br></pre></td></tr></table></figure>
+<p>同理每一个文件夹下面的redis.conf都做相应的修改</p>
+</li>
+<li><p>创建集群</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-trib.rb  create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>验证<br>redis-cli -c -p 7000</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/15/CentOS-安装redis/" itemprop="url">
                   CentOS 安装redis
                 </a>
@@ -1243,7 +1397,7 @@ export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

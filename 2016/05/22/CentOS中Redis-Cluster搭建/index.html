@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mysql," />
+  <meta name="keywords" content="redis," />
 
 
 
@@ -59,31 +59,19 @@
 
 
 
-<meta name="description" content="1.准备工作&amp;gt; wget http://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.9.tar.gz
-&amp;gt; wget http://www.boost.org/users/download/
-
-安装之前最好检查一下是否已安装了mysql和boost
-&amp;gt; rpm -qa | grep mysql   //查看系统自带mysql
-&amp;gt;">
+<meta name="description" content="背景Redis 集群是一个提供在多个Redis间节点间共享数据的程序集。Redis集群并不支持处理多个keys的命令,因为这需要在不同的节点间移动数据,从而达不到像Redis那样的性能,在高负载的情况下可能会导致不可预料的错误.Redis 集群通过分区来提供一定程度的可用性,在实际环境中当某个节点宕机或者不可达的情况下继续处理命令. 
+Redis 集群的优势:自动分割数据到不同的节点上。整个集群的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS 6.5 安装mysql 5.7.9">
-<meta property="og:url" content="http://yoursite.com/2016/04/21/CentOS-6-5-安装mysql-5-7-9/index.html">
+<meta property="og:title" content="CentOS中Redis Cluster搭建">
+<meta property="og:url" content="http://yoursite.com/2016/05/22/CentOS中Redis-Cluster搭建/index.html">
 <meta property="og:site_name" content="一直在路上">
-<meta property="og:description" content="1.准备工作&amp;gt; wget http://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.9.tar.gz
-&amp;gt; wget http://www.boost.org/users/download/
-
-安装之前最好检查一下是否已安装了mysql和boost
-&amp;gt; rpm -qa | grep mysql   //查看系统自带mysql
-&amp;gt;">
-<meta property="og:updated_time" content="2016-04-21T15:05:26.000Z">
+<meta property="og:description" content="背景Redis 集群是一个提供在多个Redis间节点间共享数据的程序集。Redis集群并不支持处理多个keys的命令,因为这需要在不同的节点间移动数据,从而达不到像Redis那样的性能,在高负载的情况下可能会导致不可预料的错误.Redis 集群通过分区来提供一定程度的可用性,在实际环境中当某个节点宕机或者不可达的情况下继续处理命令. 
+Redis 集群的优势:自动分割数据到不同的节点上。整个集群的">
+<meta property="og:updated_time" content="2016-05-22T12:39:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS 6.5 安装mysql 5.7.9">
-<meta name="twitter:description" content="1.准备工作&amp;gt; wget http://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.9.tar.gz
-&amp;gt; wget http://www.boost.org/users/download/
-
-安装之前最好检查一下是否已安装了mysql和boost
-&amp;gt; rpm -qa | grep mysql   //查看系统自带mysql
-&amp;gt;">
+<meta name="twitter:title" content="CentOS中Redis Cluster搭建">
+<meta name="twitter:description" content="背景Redis 集群是一个提供在多个Redis间节点间共享数据的程序集。Redis集群并不支持处理多个keys的命令,因为这需要在不同的节点间移动数据,从而达不到像Redis那样的性能,在高负载的情况下可能会导致不可预料的错误.Redis 集群通过分区来提供一定程度的可用性,在实际环境中当某个节点宕机或者不可达的情况下继续处理命令. 
+Redis 集群的优势:自动分割数据到不同的节点上。整个集群的">
 
 
 
@@ -101,7 +89,7 @@
   };
 </script>
 
-  <title> CentOS 6.5 安装mysql 5.7.9 | 一直在路上 </title>
+  <title> CentOS中Redis Cluster搭建 | 一直在路上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -241,7 +229,7 @@
             
             
               
-                CentOS 6.5 安装mysql 5.7.9
+                CentOS中Redis Cluster搭建
               
             
           </h1>
@@ -253,8 +241,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-21T21:20:59+08:00" content="2016-04-21">
-              2016-04-21
+            <time itemprop="dateCreated" datetime="2016-05-22T20:34:07+08:00" content="2016-05-22">
+              2016-05-22
             </time>
           </span>
 
@@ -267,8 +255,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/mysql/" itemprop="url" rel="index">
-                    <span itemprop="name">mysql</span>
+                  <a href="/categories/redis/" itemprop="url" rel="index">
+                    <span itemprop="name">redis</span>
                   </a>
                 </span>
 
@@ -283,8 +271,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/21/CentOS-6-5-安装mysql-5-7-9/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/21/CentOS-6-5-安装mysql-5-7-9/" itemprop="commentsCount"></span>
+                <a href="/2016/05/22/CentOS中Redis-Cluster搭建/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/22/CentOS中Redis-Cluster搭建/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -306,76 +294,43 @@
       
 
       
-        <h3 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h3><pre><code>&gt; wget http://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.9.tar.gz
-&gt; wget http://www.boost.org/users/download/
+        <h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>Redis 集群是一个提供在多个Redis间节点间共享数据的程序集。<br>Redis集群并不支持处理多个keys的命令,因为这需要在不同的节点间移动数据,从而达不到像Redis那样的性能,在高负载的情况下可能会导致不可预料的错误.<br>Redis 集群通过分区来提供一定程度的可用性,在实际环境中当某个节点宕机或者不可达的情况下继续处理命令. </p>
+<p>Redis 集群的优势:<br>自动分割数据到不同的节点上。<br>整个集群的部分节点失败或者不可达的情况下能够继续处理命令。</p>
+<h4 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h4><ol>
+<li><p>安装ruby</p>
+<blockquote>
+<p>yum install ruby</p>
+</blockquote>
+</li>
+<li><p>安装rubygems</p>
+<blockquote>
+<p>yum install rubygems</p>
+</blockquote>
+</li>
+<li><p>安装ruby的redis包</p>
+<blockquote>
+<p>gem install redis</p>
+</blockquote>
+</li>
+<li><p>下载<a href="http://download.redis.io/releases/redis-3.2.0.tar.gz" target="_blank" rel="external">redis</a><br>要下载redis 3.0 以上的版本</p>
+</li>
+</ol>
+<h4 id="安装redis-cluster"><a href="#安装redis-cluster" class="headerlink" title="安装redis cluster"></a>安装redis cluster</h4><ol>
+<li>安装redis,详细步骤请<a href="http://responseip.com/2016/05/15/CentOS-%E5%AE%89%E8%A3%85redis/" target="_blank" rel="external">参考</a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /usr/<span class="built_in">local</span>/redis-cluster</span><br><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/redis-cluster</span><br><span class="line">mkdir 7000</span><br><span class="line">mkdir 7001</span><br><span class="line">mkdir 7002</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>配置redis cluster</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim redis.conf</span><br><span class="line">port 7000</span><br><span class="line">daemonize yes</span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes.conf</span><br><span class="line">cluster-node-timeout 5000</span><br><span class="line">appendonly yes</span><br></pre></td></tr></table></figure>
+<p>同理每一个文件夹下面的redis.conf都做相应的修改</p>
+</li>
+<li><p>创建集群</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-trib.rb  create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>验证<br>redis-cli -c -p 7000</p>
+</li>
+</ol>
 
-安装之前最好检查一下是否已安装了mysql和boost
-&gt; rpm -qa | grep mysql   //查看系统自带mysql
-&gt; yum -y remove mysql-*   //卸载mysql
-&gt; rpm -e --nodeps mysql-5.1.73-3.el6_5.x86_64 //卸载mysql
-&gt; rpm -qa | grep boost    //查看系统自带boost
-&gt; yum -y remove boost-*   //卸载boost
-&gt; rpm -e --nodeps boost-filesystem-1.41.0-11.el6_1.2.x86_64 //卸载boost
-
-然后安装其它得依赖包：
-
-&gt; yum install gcc gcc-c++ ncurses ncurses-devel bison libgcrypt cmake
-</code></pre><h3 id="2-准备安装"><a href="#2-准备安装" class="headerlink" title="2.准备安装"></a>2.准备安装</h3><pre><code>首先将boost库解压出来
-&gt; tar -zxvf boost_1_59_0.tar.gz
-然后拷贝到一个目录中
-&gt; mv boost_1_59_0 /usr/local/boost
-注：如果不想安装boost的话，那么在编译mysql的时候指定DDOWNLOAD_BOOST=1
-</code></pre><h3 id="3-然后创建用户组以及用户"><a href="#3-然后创建用户组以及用户" class="headerlink" title="3.然后创建用户组以及用户"></a>3.然后创建用户组以及用户</h3><pre><code>&gt; cat /etc/group | grep mysql     //查看是否存在mysql用户组
-&gt; cat /etc/passwd | grep mysql    //查看是否存在mysql用户
-&gt; groupadd mysql                  //创建用户组
-&gt; useradd -r -g mysql mysql       //创建用户
-</code></pre><h3 id="4-编译mysql"><a href="#4-编译mysql" class="headerlink" title="4.编译mysql"></a>4.编译mysql</h3><pre><code>&gt; tar -xzvf mysql-5.7.9.tar.gz 
-&gt; cd mysql-5.7.9
-
-使用cmake和make命令来进行编译
-&gt; cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DMYSQL_DATADIR=/usr/local/mysql/data -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DMYSQL_TCP_PORT=3306 -DMYSQL_USER=mysql -DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_ARCHIVE_STORAGE_ENGINE=1 -DWITH_BLACKHOLE_STORAGE_ENGINE=1 -DWITH_MEMORY_STORAGE_ENGINE=1 -DENABLE_DOWNLOADS=1 -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/usr/local/boost
-&gt; make
-&gt; make install
-</code></pre><h3 id="5-创建mysql日志文件夹和pid文件夹"><a href="#5-创建mysql日志文件夹和pid文件夹" class="headerlink" title="5.创建mysql日志文件夹和pid文件夹"></a>5.创建mysql日志文件夹和pid文件夹</h3><pre><code>&gt; mkdir /usr/local/mysql/logs
-&gt; mkdir /usr/local/mysql/pids
-&gt; chown -R mysql:mysql /usr/local/mysql  //需要root
-
-随后，我们需要配置/etc/my.cnf文件：
-&gt; vim /etc/my.cnf
-然后写入参数，最终如下；
-[mysqld]
-datadir=/usr/local/mysql/data
-socket=/usr/local/mysql/mysql.sock
-[mysql_safe]
-log-error=/usr/local/mysql/logs/mysqld.log
-pid-file=/usr/local/mysql/pids/mysqld.pid
-</code></pre><h3 id="6-初始化mysql"><a href="#6-初始化mysql" class="headerlink" title="6.初始化mysql"></a>6.初始化mysql</h3><pre><code>&gt; cp support-files/mysql.server /etc/init.d/mysqld
-&gt; chmod a+x /etc/init.d/mysqld //需要root权限
-然后将mysql添加到环境变量，修改/etc/profile文件
-&gt; vim /etc/profile   //需要root
-
-在文件的最后面加入
-export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
-最后执行 
-&gt; source /etc/profile
-
-随后我们也需要多数据库进行初始化操作。自 mysql5.7 开始，初始化系统表不再使用 mysql_install_db 工具, 而是使用 mysqld –initialize-insecure –user=mysql , 其中 –initialize 表示默认生成一个安全的密码, –initialize-insecure 表示不生成密码, 密码为空
-
-&gt; mysqld --initialize-insecure --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data
-现在可以启动mysql 服务器：
-
-&gt; chkconfig mysqld on
-最后我们将root密码修改一下：
-
-&gt; mysql -u root
-&gt; mysql &gt; use mysql;
-&gt; mysql &gt; update user set authentication_string=password(&apos;123456&apos;) where user=&apos;root&apos; and Host = &apos;localhost&apos;;
-&gt; mysql &gt; create user &apos;test_user&apos;@&apos;%&apos; identified by &apos;test_user&apos;;
-&gt; mysql &gt; grant all privileges on *.* to &apos;test_user&apos;@&apos;%&apos; identified by &apos;test_user&apos;;
-&gt; mysql &gt; flush privileges;
-</code></pre><h3 id="7-开放3306端口"><a href="#7-开放3306端口" class="headerlink" title="7.开放3306端口"></a>7.开放3306端口</h3><pre><code>&gt; /sbin/iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
-&gt; /etc/rc.d/init.d/iptables save
-</code></pre>
       
     </div>
     
@@ -395,7 +350,7 @@ export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/" rel="tag">#mysql</a>
+            <a href="/tags/redis/" rel="tag">#redis</a>
           
         </div>
       
@@ -404,17 +359,13 @@ export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/17/CentOS中搭建mysql5-1/" rel="next" title="CentOS中搭建mysql5.1">
-                <i class="fa fa-chevron-left"></i> CentOS中搭建mysql5.1
+              <a href="/2016/05/15/CentOS-安装redis/" rel="next" title="CentOS 安装redis">
+                <i class="fa fa-chevron-left"></i> CentOS 安装redis
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/05/08/mysql-配置主从/" rel="prev" title="mysql 配置主从">
-                mysql 配置主从 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -463,8 +414,8 @@ export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/21/CentOS-6-5-安装mysql-5-7-9/"
-           data-title="CentOS 6.5 安装mysql 5.7.9" data-url="http://yoursite.com/2016/04/21/CentOS-6-5-安装mysql-5-7-9/">
+      <div class="ds-thread" data-thread-key="2016/05/22/CentOS中Redis-Cluster搭建/"
+           data-title="CentOS中Redis Cluster搭建" data-url="http://yoursite.com/2016/05/22/CentOS中Redis-Cluster搭建/">
       </div>
     
   </div>
@@ -564,7 +515,7 @@ export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-准备工作"><span class="nav-number">1.</span> <span class="nav-text">1.准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-准备安装"><span class="nav-number">2.</span> <span class="nav-text">2.准备安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-然后创建用户组以及用户"><span class="nav-number">3.</span> <span class="nav-text">3.然后创建用户组以及用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-编译mysql"><span class="nav-number">4.</span> <span class="nav-text">4.编译mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-创建mysql日志文件夹和pid文件夹"><span class="nav-number">5.</span> <span class="nav-text">5.创建mysql日志文件夹和pid文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-初始化mysql"><span class="nav-number">6.</span> <span class="nav-text">6.初始化mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-开放3306端口"><span class="nav-number">7.</span> <span class="nav-text">7.开放3306端口</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#环境准备"><span class="nav-number">2.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装redis-cluster"><span class="nav-number">3.</span> <span class="nav-text">安装redis cluster</span></a></li></ol></div>
             
           </div>
         </section>
