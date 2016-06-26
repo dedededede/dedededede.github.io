@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-06-26T14:19:54.000Z</updated>
+  <updated>2016-06-26T14:38:15.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/06/26/CentOS6-5%E5%AE%89%E8%A3%85Oracle11g-R2/"/>
     <id>http://yoursite.com/2016/06/26/CentOS6-5安装Oracle11g-R2/</id>
     <published>2016-06-26T12:28:35.000Z</published>
-    <updated>2016-06-26T14:19:54.000Z</updated>
+    <updated>2016-06-26T14:38:15.000Z</updated>
     
     <content type="html">&lt;h1 id=&quot;安装环境&quot;&gt;&lt;a href=&quot;#安装环境&quot; class=&quot;headerlink&quot; title=&quot;安装环境&quot;&gt;&lt;/a&gt;安装环境&lt;/h1&gt;&lt;p&gt;  Linux服务器： CentOS 6.5 64位&lt;br&gt;  Oracle: Oracle11g R2&lt;/p&gt;
 &lt;h1 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h1&gt;&lt;ol&gt;
@@ -49,23 +49,23 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;h1 id=&quot;安装步骤&quot;&gt;&lt;a href=&quot;#安装步骤&quot; class=&quot;headerlink&quot; title=&quot;安装步骤&quot;&gt;&lt;/a&gt;安装步骤&lt;/h1&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;解压完之后找到runInstaller，然后./runInstaller&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/1.jpg&quot; alt=&quot;1.jpg&quot;&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;解压完之后找到runInstaller，然后./runInstaller&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/1.jpg&quot; alt=&quot;1.jpg&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;选择安装数据库并创建数据，也可以只是安装数据库&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/2.png&quot; alt=&quot;2.png&quot;&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;选择安装数据库并创建数据，也可以只是安装数据库&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/2.png&quot; alt=&quot;2.png&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;选择安装数据库版本&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/3.png&quot; alt=&quot;3.png&quot;&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;选择安装数据库版本&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/3.png&quot; alt=&quot;3.png&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;选择合适的语言&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/4.jpg&quot; alt=&quot;4.jpg&quot;&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;选择合适的语言&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/4.jpg&quot; alt=&quot;4.jpg&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;选择安装模式&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/5.jpg&quot; alt=&quot;5.jpg&quot;&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;选择安装模式&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/5.jpg&quot; alt=&quot;5.jpg&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;选择安装路径&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/6.jpg&quot; alt=&quot;6.jpg&quot;&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;选择安装路径&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/6.jpg&quot; alt=&quot;6.jpg&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;选择dba组&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/8.jpeg&quot; alt=&quot;8.jpeg&quot;&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;选择dba组&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/8.jpeg&quot; alt=&quot;8.jpeg&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;检查环境&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/9.jpeg&quot; alt=&quot;9.jpeg&quot;&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;检查环境&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/9.jpeg&quot; alt=&quot;9.jpeg&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;等待安装完毕&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/10.png&quot; alt=&quot;10.png&quot;&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;等待安装完毕&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/10.png&quot; alt=&quot;10.png&quot;&gt;&lt;/p&gt;
 &lt;p&gt;10.安装完成后，系统会提示你需要用root权限执行2个shell脚本&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
@@ -75,7 +75,7 @@
 &lt;p&gt;修改完之后，立即生效&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;source .bash_profile&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;p&gt;执行dbca&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/11.jpg&quot; alt=&quot;11.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/12.jpg&quot; alt=&quot;12.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/13.jpg&quot; alt=&quot;13.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/14.jpg&quot; alt=&quot;14.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/15.jpg&quot; alt=&quot;15.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/16.jpg&quot; alt=&quot;16.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/17.jpg&quot; alt=&quot;17.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/18.jpg&quot; alt=&quot;18.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/19.jpg&quot; alt=&quot;19.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/20.jpg&quot; alt=&quot;20.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/21.jpg&quot; alt=&quot;21.jpg&quot;&gt;&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;执行dbca&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/11.jpg&quot; alt=&quot;11.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/12.jpg&quot; alt=&quot;12.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/13.jpg&quot; alt=&quot;13.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/14.jpg&quot; alt=&quot;14.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/15.jpg&quot; alt=&quot;15.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/16.jpg&quot; alt=&quot;16.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/17.jpg&quot; alt=&quot;17.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/18.jpg&quot; alt=&quot;18.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/19.jpg&quot; alt=&quot;19.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/20.jpg&quot; alt=&quot;20.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://o9duaoodk.bkt.clouddn.com/21.jpg&quot; alt=&quot;21.jpg&quot;&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;p&gt;开启外连&lt;br&gt;修改tnsnames.ora,listener.ora 把localhost修改成IP即可&lt;/p&gt;
 &lt;/li&gt;
