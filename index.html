@@ -228,6 +228,182 @@
             
               
                 
+                <a class="post-title-link" href="/2016/06/26/CentOS6-5安装Oracle11g-R2/" itemprop="url">
+                  CentOS6.5安装Oracle11g R2
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-26T20:28:35+08:00" content="2016-06-26">
+              2016-06-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/oracle/" itemprop="url" rel="index">
+                    <span itemprop="name">oracle</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/26/CentOS6-5安装Oracle11g-R2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/26/CentOS6-5安装Oracle11g-R2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h1><p>  Linux服务器： CentOS 6.5 64位<br>  Oracle: Oracle11g R2</p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ol>
+<li><p>[下载Oracle源码包][1]</p>
+</li>
+<li><p>给操作系统打补丁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">yum install -y binutils*</span><br><span class="line">yum install -y compat-libstdc*</span><br><span class="line">yum install -y elfutils-libelf*</span><br><span class="line">yum install -y gcc*</span><br><span class="line">yum install -y glibc*</span><br><span class="line">yum install -y ksh*</span><br><span class="line">yum install -y libaio*</span><br><span class="line">yum install -y libgcc*</span><br><span class="line">yum install -y libstdc*</span><br><span class="line">yum install -y make*</span><br><span class="line">yum install -y sysstat*</span><br><span class="line">yum install libXp* -y</span><br><span class="line">yum install -y glibc-kernheaders</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建安装数据库的用户和组</p>
+<p>创建oinstall组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd  -g 5000 oinstall</span><br></pre></td></tr></table></figure>
+<p>创建dba组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd  -g 501 dba</span><br></pre></td></tr></table></figure>
+<p>创建oracle用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -g oinstall  -G  dba  oracle</span><br></pre></td></tr></table></figure>
+<p>修改oracle密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd  oracle</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭防火墙</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/iptables stop</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改主机名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@oracledb ~]# vi /etc/hosts</span><br><span class="line">192.168.204.128     oracledb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>切换到oracle用户下开始进行安装</p>
+</li>
+</ol>
+<h1 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h1><ol>
+<li><p>解压完之后找到runInstaller，然后./runInstaller<br><img src="./uploads/oracle_data/1.jpg" alt="1.jpg"></p>
+</li>
+<li><p>选择安装数据库并创建数据，也可以只是安装数据库<br><img src="./uploads/oracle_data/2.png" alt="2.png"></p>
+</li>
+<li><p>选择安装数据库版本<br><img src="./uploads/oracle_data/3.png" alt="3.png"></p>
+</li>
+<li><p>选择合适的语言<br><img src="./uploads/oracle_data/4.jpg" alt="4.jpg"></p>
+</li>
+<li><p>选择安装模式<br><img src="./uploads/oracle_data/5.jpg" alt="5.jpg"></p>
+</li>
+<li><p>选择安装路径<br><img src="./uploads/oracle_data/6.jpg" alt="6.jpg"></p>
+</li>
+<li><p>选择dba组<br><img src="./uploads/oracle_data/8.jpeg" alt="8.jpeg"></p>
+</li>
+<li><p>检查环境<br><img src="./uploads/oracle_data/9.jpeg" alt="9.jpeg"></p>
+</li>
+<li><p>等待安装完毕<br><img src="./uploads/oracle_data/10.png" alt="10.png"></p>
+<p>10.安装完成后，系统会提示你需要用root权限执行2个shell脚本</p>
+</li>
+</ol>
+<h1 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h1><ol>
+<li><p>修改用户的.bash_profile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export ORACLE_BASE=/home/oracle/app</span><br><span class="line">export ORACLE_HOME=$ORACLE_BASE/oracle/product/11.2.0/dbhome_1</span><br><span class="line">export ORACLE_SID=orcl</span><br><span class="line">export PATH=$PATH:$HOME/bin:$ORACLE_HOME/bin</span><br><span class="line">export LD_LIBRARY_PATH=$ORACLE_HOME/lib:/usr/lib</span><br></pre></td></tr></table></figure>
+<p>修改完之后，立即生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source .bash_profile</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行dbca<br><img src="./uploads/oracle_data/11.jpg" alt="11.jpg"><br><img src="./uploads/oracle_data/12.jpg" alt="12.jpg"><br><img src="./uploads/oracle_data/13.jpg" alt="13.jpg"><br><img src="./uploads/oracle_data/14.jpg" alt="14.jpg"><br><img src="./uploads/oracle_data/15.jpg" alt="15.jpg"><br><img src="./uploads/oracle_data/16.jpg" alt="16.jpg"><br><img src="./uploads/oracle_data/17.jpg" alt="17.jpg"><br><img src="./uploads/oracle_data/18.jpg" alt="18.jpg"><br><img src="./uploads/oracle_data/19.jpg" alt="19.jpg"><br><img src="./uploads/oracle_data/20.jpg" alt="20.jpg"><br><img src="./uploads/oracle_data/21.jpg" alt="21.jpg"></p>
+</li>
+<li><p>开启外连<br>修改tnsnames.ora,listener.ora 把localhost修改成IP即可</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/29/python中深拷贝和浅拷贝的区别/" itemprop="url">
                   python中深拷贝和浅拷贝的区别
                 </a>
@@ -1544,7 +1720,7 @@ export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1552,7 +1728,7 @@ export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1561,7 +1737,7 @@ export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

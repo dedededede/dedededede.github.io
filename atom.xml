@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-05-29T14:59:12.000Z</updated>
+  <updated>2016-06-26T13:49:14.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,87 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CentOS6.5安装Oracle11g R2</title>
+    <link href="http://yoursite.com/2016/06/26/CentOS6-5%E5%AE%89%E8%A3%85Oracle11g-R2/"/>
+    <id>http://yoursite.com/2016/06/26/CentOS6-5安装Oracle11g-R2/</id>
+    <published>2016-06-26T12:28:35.000Z</published>
+    <updated>2016-06-26T13:49:14.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;安装环境&quot;&gt;&lt;a href=&quot;#安装环境&quot; class=&quot;headerlink&quot; title=&quot;安装环境&quot;&gt;&lt;/a&gt;安装环境&lt;/h1&gt;&lt;p&gt;  Linux服务器： CentOS 6.5 64位&lt;br&gt;  Oracle: Oracle11g R2&lt;/p&gt;
+&lt;h1 id=&quot;准备工作&quot;&gt;&lt;a href=&quot;#准备工作&quot; class=&quot;headerlink&quot; title=&quot;准备工作&quot;&gt;&lt;/a&gt;准备工作&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;[下载Oracle源码包][1]&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;给操作系统打补丁&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;yum install -y binutils*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install -y compat-libstdc*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install -y elfutils-libelf*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install -y gcc*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install -y glibc*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install -y ksh*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install -y libaio*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install -y libgcc*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install -y libstdc*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install -y make*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install -y sysstat*&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install libXp* -y&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum install -y glibc-kernheaders&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;创建安装数据库的用户和组&lt;/p&gt;
+&lt;p&gt;创建oinstall组&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;groupadd  -g 5000 oinstall&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;创建dba组&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;groupadd  -g 501 dba&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;创建oracle用户&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;useradd -g oinstall  -G  dba  oracle&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;修改oracle密码&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;passwd  oracle&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;关闭防火墙&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/etc/init.d/iptables stop&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;修改主机名&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[root@oracledb ~]# vi /etc/hosts&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;192.168.204.128     oracledb&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;切换到oracle用户下开始进行安装&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&quot;安装步骤&quot;&gt;&lt;a href=&quot;#安装步骤&quot; class=&quot;headerlink&quot; title=&quot;安装步骤&quot;&gt;&lt;/a&gt;安装步骤&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;解压完之后找到runInstaller，然后./runInstaller&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/1.jpg&quot; alt=&quot;1.jpg&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;选择安装数据库并创建数据，也可以只是安装数据库&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/2.png&quot; alt=&quot;2.png&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;选择安装数据库版本&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/3.png&quot; alt=&quot;3.png&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;选择合适的语言&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/4.jpg&quot; alt=&quot;4.jpg&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;选择安装模式&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/5.jpg&quot; alt=&quot;5.jpg&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;选择安装路径&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/6.jpg&quot; alt=&quot;6.jpg&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;选择dba组&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/8.jpeg&quot; alt=&quot;8.jpeg&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;检查环境&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/9.jpeg&quot; alt=&quot;9.jpeg&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;等待安装完毕&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/10.png&quot; alt=&quot;10.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;10.安装完成后，系统会提示你需要用root权限执行2个shell脚本&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&quot;创建数据库&quot;&gt;&lt;a href=&quot;#创建数据库&quot; class=&quot;headerlink&quot; title=&quot;创建数据库&quot;&gt;&lt;/a&gt;创建数据库&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;修改用户的.bash_profile&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;export ORACLE_BASE=/home/oracle/app&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export ORACLE_HOME=$ORACLE_BASE/oracle/product/11.2.0/dbhome_1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export ORACLE_SID=orcl&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export PATH=$PATH:$HOME/bin:$ORACLE_HOME/bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export LD_LIBRARY_PATH=$ORACLE_HOME/lib:/usr/lib&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;修改完之后，立即生效&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;source .bash_profile&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;执行dbca&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/11.jpg&quot; alt=&quot;11.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/12.jpg&quot; alt=&quot;12.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/13.jpg&quot; alt=&quot;13.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/14.jpg&quot; alt=&quot;14.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/15.jpg&quot; alt=&quot;15.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/16.jpg&quot; alt=&quot;16.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/17.jpg&quot; alt=&quot;17.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/18.jpg&quot; alt=&quot;18.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/19.jpg&quot; alt=&quot;19.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/20.jpg&quot; alt=&quot;20.jpg&quot;&gt;&lt;br&gt;&lt;img src=&quot;./uploads/oracle_data/21.jpg&quot; alt=&quot;21.jpg&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;开启外连&lt;br&gt;修改tnsnames.ora,listener.ora 把localhost修改成IP即可&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;安装环境&quot;&gt;&lt;a href=&quot;#安装环境&quot; class=&quot;headerlink&quot; title=&quot;安装环境&quot;&gt;&lt;/a&gt;安装环境&lt;/h1&gt;&lt;p&gt;  Linux服务器： CentOS 6.5 64位&lt;br&gt;  Oracle: Oracle11g R2&lt;/p&gt;
+&lt;h1 i
+    
+    </summary>
+    
+      <category term="oracle" scheme="http://yoursite.com/categories/oracle/"/>
+    
+    
+      <category term="oracle" scheme="http://yoursite.com/tags/oracle/"/>
+    
+  </entry>
   
   <entry>
     <title>python中深拷贝和浅拷贝的区别</title>

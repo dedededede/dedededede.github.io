@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mysql," />
+  <meta name="keywords" content="oracle," />
 
 
 
@@ -59,28 +59,52 @@
 
 
 
-<meta name="description" content="解释一下SQL里面的null答案：null代表一个unknown的值或者一个不存在的值
-如何用SQL判断一个值是不是null?答案：可以用is null来判断一个值是不是null
-所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null答案：正确
-所有与null得比较运算都返回unknown正确吗？答案：正确
-(unknown or true) = tr">
+<meta name="description" content="安装环境  Linux服务器： CentOS 6.5 64位  Oracle: Oracle11g R2
+准备工作
+[下载Oracle源码包][1]
+
+给操作系统打补丁
+12345678910111213yum install -y binutils*yum install -y compat-libstdc*yum install -y elfutils-libelf*yum install -">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sql中的unkonw">
-<meta property="og:url" content="http://yoursite.com/2016/04/05/sql中的unkonw/index.html">
+<meta property="og:title" content="CentOS6.5安装Oracle11g R2">
+<meta property="og:url" content="http://yoursite.com/2016/06/26/CentOS6-5安装Oracle11g-R2/index.html">
 <meta property="og:site_name" content="一直在路上">
-<meta property="og:description" content="解释一下SQL里面的null答案：null代表一个unknown的值或者一个不存在的值
-如何用SQL判断一个值是不是null?答案：可以用is null来判断一个值是不是null
-所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null答案：正确
-所有与null得比较运算都返回unknown正确吗？答案：正确
-(unknown or true) = tr">
-<meta property="og:updated_time" content="2016-04-06T15:02:32.000Z">
+<meta property="og:description" content="安装环境  Linux服务器： CentOS 6.5 64位  Oracle: Oracle11g R2
+准备工作
+[下载Oracle源码包][1]
+
+给操作系统打补丁
+12345678910111213yum install -y binutils*yum install -y compat-libstdc*yum install -y elfutils-libelf*yum install -">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/1.jpg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/2.png">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/3.png">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/4.jpg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/5.jpg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/6.jpg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/8.jpeg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/9.jpeg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/10.png">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/11.jpg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/12.jpg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/13.jpg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/14.jpg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/15.jpg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/16.jpg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/17.jpg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/18.jpg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/19.jpg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/20.jpg">
+<meta property="og:image" content="http://yoursite.com/./uploads/oracle_data/21.jpg">
+<meta property="og:updated_time" content="2016-06-26T13:49:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sql中的unkonw">
-<meta name="twitter:description" content="解释一下SQL里面的null答案：null代表一个unknown的值或者一个不存在的值
-如何用SQL判断一个值是不是null?答案：可以用is null来判断一个值是不是null
-所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null答案：正确
-所有与null得比较运算都返回unknown正确吗？答案：正确
-(unknown or true) = tr">
+<meta name="twitter:title" content="CentOS6.5安装Oracle11g R2">
+<meta name="twitter:description" content="安装环境  Linux服务器： CentOS 6.5 64位  Oracle: Oracle11g R2
+准备工作
+[下载Oracle源码包][1]
+
+给操作系统打补丁
+12345678910111213yum install -y binutils*yum install -y compat-libstdc*yum install -y elfutils-libelf*yum install -">
+<meta name="twitter:image" content="http://yoursite.com/./uploads/oracle_data/1.jpg">
 
 
 
@@ -98,7 +122,7 @@
   };
 </script>
 
-  <title> sql中的unkonw | 一直在路上 </title>
+  <title> CentOS6.5安装Oracle11g R2 | 一直在路上 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -238,7 +262,7 @@
             
             
               
-                sql中的unkonw
+                CentOS6.5安装Oracle11g R2
               
             
           </h1>
@@ -250,8 +274,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-05T21:18:22+08:00" content="2016-04-05">
-              2016-04-05
+            <time itemprop="dateCreated" datetime="2016-06-26T20:28:35+08:00" content="2016-06-26">
+              2016-06-26
             </time>
           </span>
 
@@ -264,8 +288,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/mysql/" itemprop="url" rel="index">
-                    <span itemprop="name">mysql</span>
+                  <a href="/categories/oracle/" itemprop="url" rel="index">
+                    <span itemprop="name">oracle</span>
                   </a>
                 </span>
 
@@ -280,8 +304,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/05/sql中的unkonw/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/05/sql中的unkonw/" itemprop="commentsCount"></span>
+                <a href="/2016/06/26/CentOS6-5安装Oracle11g-R2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/26/CentOS6-5安装Oracle11g-R2/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -303,23 +327,64 @@
       
 
       
-        <ol>
-<li>解释一下SQL里面的null<br>答案：null代表一个unknown的值或者一个不存在的值</li>
-<li>如何用SQL判断一个值是不是null?<br>答案：可以用is null来判断一个值是不是null</li>
-<li>所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null<br>答案：正确</li>
-<li>所有与null得比较运算都返回unknown正确吗？<br>答案：正确</li>
-<li>(unknown or true) = true正确吗？<br>答案：正确，进行的是或运算，就算不知道unknown不知道真假，但是or后面的true为真，所以最终结果为true。</li>
-<li>(unknown or false) = unknown正确吗？<br>答案：正确，</li>
-<li>(unknown or unknown) = unknown正确吗？<br>答案：正确</li>
-<li>(true and unknown) = unknown正确吗？<br>答案：正确</li>
-<li>(false and unknown) = false正确吗？<br>答案：正确</li>
-<li>(unknown and unknown) = unknown正确吗？<br>答案：正确</li>
-<li>(not unknown) = unknown 正确吗？<br>答案：正确</li>
+        <h1 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h1><p>  Linux服务器： CentOS 6.5 64位<br>  Oracle: Oracle11g R2</p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ol>
+<li><p>[下载Oracle源码包][1]</p>
+</li>
+<li><p>给操作系统打补丁</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">yum install -y binutils*</span><br><span class="line">yum install -y compat-libstdc*</span><br><span class="line">yum install -y elfutils-libelf*</span><br><span class="line">yum install -y gcc*</span><br><span class="line">yum install -y glibc*</span><br><span class="line">yum install -y ksh*</span><br><span class="line">yum install -y libaio*</span><br><span class="line">yum install -y libgcc*</span><br><span class="line">yum install -y libstdc*</span><br><span class="line">yum install -y make*</span><br><span class="line">yum install -y sysstat*</span><br><span class="line">yum install libXp* -y</span><br><span class="line">yum install -y glibc-kernheaders</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建安装数据库的用户和组</p>
+<p>创建oinstall组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd  -g 5000 oinstall</span><br></pre></td></tr></table></figure>
+<p>创建dba组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd  -g 501 dba</span><br></pre></td></tr></table></figure>
+<p>创建oracle用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -g oinstall  -G  dba  oracle</span><br></pre></td></tr></table></figure>
+<p>修改oracle密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd  oracle</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭防火墙</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/iptables stop</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改主机名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@oracledb ~]# vi /etc/hosts</span><br><span class="line">192.168.204.128     oracledb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>切换到oracle用户下开始进行安装</p>
+</li>
 </ol>
-<p>刚开始看了以上面试题，觉得一点都不会，后来查询了mysql手册，顿时大唔。<br>对于SQL的新手，NULL值的概念常常会造成混淆，他们常认为NULL是与空字符串’’相同的事。<br>为了进行NULL处理，可使用IS NULL和IS NOT NULL操作符以及IFNULL()函数。</p>
-<p>在SQL中，NULL值与任何其它值的比较（即使是NULL）永远不会为“真”。包含NULL的表达式总是会导出NULL值，除非在关于操作符的文档中以及表达式的函数中作了其他规定。<br>后来又查看了<a href="http://blog.sina.com.cn/gujinku" target="_blank" rel="external">http://blog.sina.com.cn/gujinku</a> 这篇文章，下面是其中的一段话，</p>
-<p>因为NULL当UNKNOWN来理解，因此，当值为NULL时，它既有可能是FALSE也有可能是TRUE。如果计算结果只有一种可能，则取该种可能；如果计算结果既有可能是FALSE，也有可能是TRUE，那么结果便为NULL。例如，NOT NULL，其结果也有两种可能，因此NOT NULL的结果是NULL。再例如，NULL AND TRUE，则其结果也有两种可能，因此NULL AND TRUE的结果是NULL。但是，NULL OR TRUE，或是NULL AND FALSE，前者结果为TRUE，单是一个TRUE出现，便足以知道结果为TRUE；后者结果为FALSE，单是一个FALSE出现，便足以知道结果为FALSE。这是OR和AND的特性决定的。</p>
-<p>现在回过头来，看上面的问题，是不是觉得就很容易理解了。</p>
+<h1 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h1><ol>
+<li><p>解压完之后找到runInstaller，然后./runInstaller<br><img src="./uploads/oracle_data/1.jpg" alt="1.jpg"></p>
+</li>
+<li><p>选择安装数据库并创建数据，也可以只是安装数据库<br><img src="./uploads/oracle_data/2.png" alt="2.png"></p>
+</li>
+<li><p>选择安装数据库版本<br><img src="./uploads/oracle_data/3.png" alt="3.png"></p>
+</li>
+<li><p>选择合适的语言<br><img src="./uploads/oracle_data/4.jpg" alt="4.jpg"></p>
+</li>
+<li><p>选择安装模式<br><img src="./uploads/oracle_data/5.jpg" alt="5.jpg"></p>
+</li>
+<li><p>选择安装路径<br><img src="./uploads/oracle_data/6.jpg" alt="6.jpg"></p>
+</li>
+<li><p>选择dba组<br><img src="./uploads/oracle_data/8.jpeg" alt="8.jpeg"></p>
+</li>
+<li><p>检查环境<br><img src="./uploads/oracle_data/9.jpeg" alt="9.jpeg"></p>
+</li>
+<li><p>等待安装完毕<br><img src="./uploads/oracle_data/10.png" alt="10.png"></p>
+<p>10.安装完成后，系统会提示你需要用root权限执行2个shell脚本</p>
+</li>
+</ol>
+<h1 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h1><ol>
+<li><p>修改用户的.bash_profile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export ORACLE_BASE=/home/oracle/app</span><br><span class="line">export ORACLE_HOME=$ORACLE_BASE/oracle/product/11.2.0/dbhome_1</span><br><span class="line">export ORACLE_SID=orcl</span><br><span class="line">export PATH=$PATH:$HOME/bin:$ORACLE_HOME/bin</span><br><span class="line">export LD_LIBRARY_PATH=$ORACLE_HOME/lib:/usr/lib</span><br></pre></td></tr></table></figure>
+<p>修改完之后，立即生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source .bash_profile</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行dbca<br><img src="./uploads/oracle_data/11.jpg" alt="11.jpg"><br><img src="./uploads/oracle_data/12.jpg" alt="12.jpg"><br><img src="./uploads/oracle_data/13.jpg" alt="13.jpg"><br><img src="./uploads/oracle_data/14.jpg" alt="14.jpg"><br><img src="./uploads/oracle_data/15.jpg" alt="15.jpg"><br><img src="./uploads/oracle_data/16.jpg" alt="16.jpg"><br><img src="./uploads/oracle_data/17.jpg" alt="17.jpg"><br><img src="./uploads/oracle_data/18.jpg" alt="18.jpg"><br><img src="./uploads/oracle_data/19.jpg" alt="19.jpg"><br><img src="./uploads/oracle_data/20.jpg" alt="20.jpg"><br><img src="./uploads/oracle_data/21.jpg" alt="21.jpg"></p>
+</li>
+<li><p>开启外连<br>修改tnsnames.ora,listener.ora 把localhost修改成IP即可</p>
+</li>
+</ol>
 
       
     </div>
@@ -340,7 +405,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/" rel="tag">#mysql</a>
+            <a href="/tags/oracle/" rel="tag">#oracle</a>
           
         </div>
       
@@ -349,17 +414,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/02/python中的True-False/" rel="next" title="python中的True,False">
-                <i class="fa fa-chevron-left"></i> python中的True,False
+              <a href="/2016/05/29/python中深拷贝和浅拷贝的区别/" rel="next" title="python中深拷贝和浅拷贝的区别">
+                <i class="fa fa-chevron-left"></i> python中深拷贝和浅拷贝的区别
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/12/python-import-机制/" rel="prev" title="python import 机制">
-                python import 机制 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -408,8 +469,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/04/05/sql中的unkonw/"
-           data-title="sql中的unkonw" data-url="http://yoursite.com/2016/04/05/sql中的unkonw/">
+      <div class="ds-thread" data-thread-key="2016/06/26/CentOS6-5安装Oracle11g-R2/"
+           data-title="CentOS6.5安装Oracle11g R2" data-url="http://yoursite.com/2016/06/26/CentOS6-5安装Oracle11g-R2/">
       </div>
     
   </div>
@@ -509,7 +570,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装环境"><span class="nav-number">1.</span> <span class="nav-text">安装环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装步骤"><span class="nav-number">3.</span> <span class="nav-text">安装步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建数据库"><span class="nav-number">4.</span> <span class="nav-text">创建数据库</span></a></li></ol></div>
             
           </div>
         </section>
