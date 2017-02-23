@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-23T14:59:42.000Z</updated>
+  <updated>2017-02-23T15:01:58.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>python string interning</title>
+    <title>python string intern</title>
     <link href="http://yoursite.com/2017/02/23/python-string-interning/"/>
     <id>http://yoursite.com/2017/02/23/python-string-interning/</id>
     <published>2017-02-23T14:07:00.000Z</published>
-    <updated>2017-02-23T14:59:42.000Z</updated>
+    <updated>2017-02-23T15:01:58.000Z</updated>
     
     <content type="html">&lt;p&gt;python 字符串驻留有5种情况&lt;/p&gt;
 &lt;p&gt;1.长度为0 和 1 的字符串驻留&lt;/p&gt;
