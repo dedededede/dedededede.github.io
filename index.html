@@ -228,6 +228,129 @@
             
               
                 
+                <a class="post-title-link" href="/2017/02/23/python-string-interning/" itemprop="url">
+                  python string interning
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-23T22:07:00+08:00" content="2017-02-23">
+              2017-02-23
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/23/python-string-interning/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/23/python-string-interning/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>python 字符串驻留有5种情况</p>
+<p>1.长度为0 和 1 的字符串驻留</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="string">'!'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="string">'!'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="string">''</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="string">''</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="string">'!!'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="string">'!!'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+<p>2.编译期间确定的字符串，采用驻留机制</p>
+<p>   仅限于以下字符<br>   “0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz”</p>
+<p>第一个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a=<span class="string">'abcdef!'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b=<span class="string">'abcdef!'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+<p>第二个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1 = <span class="string">'foo'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s2 = <span class="string">''</span>.join([<span class="string">'f'</span>, <span class="string">'o'</span>, <span class="string">'o'</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1 <span class="keyword">is</span> s2</span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+<p>s1 是编译时候声明的，s2是在运行时候才产生的结果，但是下面例子除外</p>
+<p>第三个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1 = <span class="string">'foo'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s2 = <span class="string">''</span>.join([<span class="string">'foo'</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1 <span class="keyword">is</span> s2</span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<p>通过dis分析，看一下上面两个例子究竟有何不同</p>
+<p>分析第三个例子，结果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">    &gt;&gt;&gt; <span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>   s1 = <span class="string">'foo'</span></span><br><span class="line"><span class="meta">... </span>   s2 = <span class="string">''</span>.join([<span class="string">'foo'</span>])</span><br><span class="line"><span class="meta">... </span>   <span class="keyword">print</span> s1 <span class="keyword">is</span> s2</span><br><span class="line"><span class="meta">... </span></span><br><span class="line">    &gt;&gt;&gt; dis(test)</span><br><span class="line">  <span class="number">2</span>           <span class="number">0</span> LOAD_CONST               <span class="number">1</span> (<span class="string">'foo'</span>)</span><br><span class="line">              <span class="number">3</span> STORE_FAST               <span class="number">0</span> (s1)</span><br><span class="line"></span><br><span class="line">  <span class="number">3</span>           <span class="number">6</span> LOAD_CONST               <span class="number">2</span> (<span class="string">''</span>)</span><br><span class="line">              <span class="number">9</span> LOAD_ATTR                <span class="number">0</span> (join)</span><br><span class="line">             <span class="number">12</span> LOAD_CONST               <span class="number">1</span> (<span class="string">'foo'</span>)</span><br><span class="line">             <span class="number">15</span> BUILD_LIST               <span class="number">1</span></span><br><span class="line">             <span class="number">18</span> CALL_FUNCTION            <span class="number">1</span></span><br><span class="line">             <span class="number">21</span> STORE_FAST               <span class="number">1</span> (s2)</span><br><span class="line"></span><br><span class="line">  <span class="number">4</span>          <span class="number">24</span> LOAD_FAST                <span class="number">0</span> (s1)</span><br><span class="line">             <span class="number">27</span> LOAD_FAST                <span class="number">1</span> (s2)</span><br><span class="line">             <span class="number">30</span> COMPARE_OP               <span class="number">8</span> (<span class="keyword">is</span>)</span><br><span class="line">             <span class="number">33</span> PRINT_ITEM          </span><br><span class="line">             <span class="number">34</span> PRINT_NEWLINE       </span><br><span class="line">             <span class="number">35</span> LOAD_CONST               <span class="number">0</span> (<span class="keyword">None</span>)</span><br><span class="line">             <span class="number">38</span> RETURN_VALUE        </span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<p>让我们再看看第二个例子的分析结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">    &gt;&gt;&gt; <span class="function"><span class="keyword">def</span> <span class="title">test1</span><span class="params">()</span>:</span></span><br><span class="line"><span class="meta">... </span>    s1 = <span class="string">'foo'</span></span><br><span class="line"><span class="meta">... </span>    s2 = <span class="string">''</span>.join([<span class="string">'f'</span>,<span class="string">'o'</span>, <span class="string">'o'</span>])</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">print</span> s1 <span class="keyword">is</span> s2</span><br><span class="line"><span class="meta">... </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>dis(test1)</span><br><span class="line">  <span class="number">2</span>           <span class="number">0</span> LOAD_CONST               <span class="number">1</span> (<span class="string">'foo'</span>)</span><br><span class="line">              <span class="number">3</span> STORE_FAST               <span class="number">0</span> (s1)</span><br><span class="line"></span><br><span class="line">  <span class="number">3</span>           <span class="number">6</span> LOAD_CONST               <span class="number">2</span> (<span class="string">''</span>)</span><br><span class="line">              <span class="number">9</span> LOAD_ATTR                <span class="number">0</span> (join)</span><br><span class="line">             <span class="number">12</span> LOAD_CONST               <span class="number">3</span> (<span class="string">'f'</span>)</span><br><span class="line">             <span class="number">15</span> LOAD_CONST               <span class="number">4</span> (<span class="string">'o'</span>)</span><br><span class="line">             <span class="number">18</span> LOAD_CONST               <span class="number">4</span> (<span class="string">'o'</span>)</span><br><span class="line">             <span class="number">21</span> BUILD_LIST               <span class="number">3</span></span><br><span class="line">             <span class="number">24</span> CALL_FUNCTION            <span class="number">1</span></span><br><span class="line">             <span class="number">27</span> STORE_FAST               <span class="number">1</span> (s2)</span><br><span class="line"></span><br><span class="line">  <span class="number">4</span>          <span class="number">30</span> LOAD_FAST                <span class="number">0</span> (s1)</span><br><span class="line">             <span class="number">33</span> LOAD_FAST                <span class="number">1</span> (s2)</span><br><span class="line">             <span class="number">36</span> COMPARE_OP               <span class="number">8</span> (<span class="keyword">is</span>)</span><br><span class="line">             <span class="number">39</span> PRINT_ITEM          </span><br><span class="line">             <span class="number">40</span> PRINT_NEWLINE       </span><br><span class="line">             <span class="number">41</span> LOAD_CONST               <span class="number">0</span> (<span class="keyword">None</span>)</span><br><span class="line">             <span class="number">44</span> RETURN_VALUE       </span><br><span class="line">    &gt;&gt;&gt; <span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+<p>3.编译时候常量合并</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'foo'</span> + <span class="string">'bar'</span> <span class="keyword">is</span> <span class="string">'foobar'</span></span><br><span class="line"><span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<p> 这里面会牵扯到一种被称作 “窥孔优化”的机制存在，目的是通过替换更快的指令来产生更加高效的字节码。<br> 具体见<a href="https://en.wikipedia.org/wiki/Peephole_optimization" target="_blank" rel="external">peephole optimization</a></p>
+<p>4.通过乘法运算符得到的字符串，长度必须小于20，不然也无驻留机制。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="string">'a'</span> * <span class="number">20</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="string">'aaaaaaaaaaaaaaaaaaaa'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="string">'a'</span> * <span class="number">21</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="string">'aaaaaaaaaaaaaaaaaaaaa'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+<p>5.对于整数数字，Python也会有驻留机制，但是只限于[-5,256]之间的数字，不同版本的数值可能会不同。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">-5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="number">-5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">-6</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="number">-6</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">256</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="number">256</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">257</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = <span class="number">257</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a <span class="keyword">is</span> b</span><br><span class="line"><span class="keyword">False</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/26/CentOS6-5安装Oracle11g-R2/" itemprop="url">
                   CentOS6.5安装Oracle11g R2
                 </a>
@@ -1558,130 +1681,13 @@ export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/02/python中的True-False/" itemprop="url">
-                  python中的True,False
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-02T22:44:55+08:00" content="2016-04-02">
-              2016-04-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index">
-                    <span itemprop="name">python</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/02/python中的True-False/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/02/python中的True-False/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <hr>
-<p>在Python中，0 == False， 1 == True 其余的既不是True，也不是False。<br>如果牵扯到bool计算时，除了’’、””、0、()、[]、{}、None为False之外，<br>其他的都是True。</p>
-<p>if 条件判断是在计算完后面表达式结束是，然后把计算结果进行bool计算。</p>
-
-          
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1720,7 +1726,7 @@ export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1783,7 +1789,7 @@ export PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:$PATH
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
