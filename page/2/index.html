@@ -228,6 +228,141 @@
             
               
                 
+                <a class="post-title-link" href="/2016/04/05/sql中的unkonw/" itemprop="url">
+                  sql中的unkonw
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-05T21:18:22+08:00" content="2016-04-05">
+              2016-04-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/05/sql中的unkonw/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/05/sql中的unkonw/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>解释一下SQL里面的null<br>答案：null代表一个unknown的值或者一个不存在的值</li>
+<li>如何用SQL判断一个值是不是null?<br>答案：可以用is null来判断一个值是不是null</li>
+<li>所有包含null的计算表达式的返回结果都是null, 这句话正确吗？比如5+ null返回null<br>答案：正确</li>
+<li>所有与null得比较运算都返回unknown正确吗？<br>答案：正确</li>
+<li>(unknown or true) = true正确吗？<br>答案：正确，进行的是或运算，就算不知道unknown不知道真假，但是or后面的true为真，所以最终结果为true。</li>
+<li>(unknown or false) = unknown正确吗？<br>答案：正确，</li>
+<li>(unknown or unknown) = unknown正确吗？<br>答案：正确</li>
+<li>(true and unknown) = unknown正确吗？<br>答案：正确</li>
+<li>(false and unknown) = false正确吗？<br>答案：正确</li>
+<li>(unknown and unknown) = unknown正确吗？<br>答案：正确</li>
+<li>(not unknown) = unknown 正确吗？<br>答案：正确</li>
+</ol>
+<p>刚开始看了以上面试题，觉得一点都不会，后来查询了mysql手册，顿时大唔。<br>对于SQL的新手，NULL值的概念常常会造成混淆，他们常认为NULL是与空字符串’’相同的事。<br>为了进行NULL处理，可使用IS NULL和IS NOT NULL操作符以及IFNULL()函数。</p>
+<p>在SQL中，NULL值与任何其它值的比较（即使是NULL）永远不会为“真”。包含NULL的表达式总是会导出NULL值，除非在关于操作符的文档中以及表达式的函数中作了其他规定。<br>后来又查看了<a href="http://blog.sina.com.cn/gujinku" target="_blank" rel="external">http://blog.sina.com.cn/gujinku</a> 这篇文章，下面是其中的一段话，</p>
+<p>因为NULL当UNKNOWN来理解，因此，当值为NULL时，它既有可能是FALSE也有可能是TRUE。如果计算结果只有一种可能，则取该种可能；如果计算结果既有可能是FALSE，也有可能是TRUE，那么结果便为NULL。例如，NOT NULL，其结果也有两种可能，因此NOT NULL的结果是NULL。再例如，NULL AND TRUE，则其结果也有两种可能，因此NULL AND TRUE的结果是NULL。但是，NULL OR TRUE，或是NULL AND FALSE，前者结果为TRUE，单是一个TRUE出现，便足以知道结果为TRUE；后者结果为FALSE，单是一个FALSE出现，便足以知道结果为FALSE。这是OR和AND的特性决定的。</p>
+<p>现在回过头来，看上面的问题，是不是觉得就很容易理解了。</p>
+
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/04/02/python中的True-False/" itemprop="url">
                   python中的True,False
                 </a>
@@ -373,7 +508,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

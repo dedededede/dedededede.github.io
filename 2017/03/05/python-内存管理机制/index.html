@@ -1,0 +1,648 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="一直在路上" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="Python语言是一种动态的解释编程语言Python不同于C,java一样，它们都是事先定义好变量的类型。Python是在运行过程中，根据对象的类型变化而变化。
+12345678910111213141516171819&amp;gt;&amp;gt;&amp;gt; a = 1&amp;gt;&amp;gt;&amp;gt; type(a)&amp;lt;type &apos;int&apos;&amp;gt;&amp;gt;&amp;gt;&amp;gt; a = 1.5&amp;gt;&amp;gt;&amp;gt; t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python 内存管理机制">
+<meta property="og:url" content="http://yoursite.com/2017/03/05/python-内存管理机制/index.html">
+<meta property="og:site_name" content="一直在路上">
+<meta property="og:description" content="Python语言是一种动态的解释编程语言Python不同于C,java一样，它们都是事先定义好变量的类型。Python是在运行过程中，根据对象的类型变化而变化。
+12345678910111213141516171819&amp;gt;&amp;gt;&amp;gt; a = 1&amp;gt;&amp;gt;&amp;gt; type(a)&amp;lt;type &apos;int&apos;&amp;gt;&amp;gt;&amp;gt;&amp;gt; a = 1.5&amp;gt;&amp;gt;&amp;gt; t">
+<meta property="og:image" content="http://o9duaoodk.bkt.clouddn.com/python-memory.png">
+<meta property="og:updated_time" content="2017-03-05T10:03:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python 内存管理机制">
+<meta name="twitter:description" content="Python语言是一种动态的解释编程语言Python不同于C,java一样，它们都是事先定义好变量的类型。Python是在运行过程中，根据对象的类型变化而变化。
+12345678910111213141516171819&amp;gt;&amp;gt;&amp;gt; a = 1&amp;gt;&amp;gt;&amp;gt; type(a)&amp;lt;type &apos;int&apos;&amp;gt;&amp;gt;&amp;gt;&amp;gt; a = 1.5&amp;gt;&amp;gt;&amp;gt; t">
+<meta name="twitter:image" content="http://o9duaoodk.bkt.clouddn.com/python-memory.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> python 内存管理机制 | 一直在路上 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">一直在路上</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">码农 攻城狮</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                python 内存管理机制
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-05T17:29:39+08:00" content="2017-03-05">
+              2017-03-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/03/05/python-内存管理机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/05/python-内存管理机制/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Python语言是一种动态的解释编程语言"><a href="#Python语言是一种动态的解释编程语言" class="headerlink" title="Python语言是一种动态的解释编程语言"></a>Python语言是一种动态的解释编程语言</h3><p>Python不同于C,java一样，它们都是事先定义好变量的类型。Python是在运行过程中，根据对象的类型变化而变化。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">1</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(a)</span><br><span class="line">&lt;type <span class="string">'int'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="number">1.5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(a)</span><br><span class="line">&lt;type <span class="string">'float'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = &#123;&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(a)</span><br><span class="line">&lt;type <span class="string">'dict'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = []</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(a)</span><br><span class="line">&lt;type <span class="string">'list'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = ()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(a)</span><br><span class="line">&lt;type <span class="string">'tuple'</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = set()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>type(a)</span><br><span class="line">&lt;type <span class="string">'set'</span>&gt;</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>在上述过程中，其实a还是那个a，只不过是a指向的地址不一样，所以就导致了a的类型一直在变化。</p>
+<h3 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h3><pre><code>Python的GC模块主要运用了“引用计数”（reference counting）来跟踪和回收垃圾。在引用计数的基础上，
+</code></pre><p>还可以通过“标记-清除”（mark and sweep）解决容器对象可能产生的循环引用的问题。通过“分代回收”（generation collection）以空间换取时间来进一步提高垃圾回收的效率。</p>
+<h4 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h4><p>在Python中一切皆对象，每一个对象都会维护一个结构体<br>typedef struct_object {<br>       int ob_refcnt;<br>       struct_typeobject *ob_type;<br>}PyObject;</p>
+<p>其中ob_refcnt 就是引用计数，当一个对象引用它时，它的ob_refcnt就会增加，当删除这个对象时候，它的ob_refcnt就会减少。</p>
+<p>引用计数+1的情况：</p>
+<p>创建对象<br>对象产生引用<br>对象被作为参数，传入到一个函数中<br>对象被添加到容器中</p>
+<p>引用计数-1的情况：</p>
+<p>对象的引用被销毁<br>对象的引用发生改变<br>对象离开它的作用域<br>对象所在的容器被销毁，或者从容器中删除</p>
+<p>e.g.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- encoding: utf8 -*-</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">init_cnt = sys.getrefcount(<span class="number">11</span>) - <span class="number">1</span>  <span class="comment"># 由于字符串驻留机制,python在加载时候会产生对1的引用, 所以这里a不等于0,注:由于调用了getrefcount这个方法,这里的引用计数会再+1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">"init"</span>, init_cnt</span><br><span class="line"></span><br><span class="line">a = <span class="number">11</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'after a = 11, count:'</span>, sys.getrefcount(a) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">b = a</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">"after b = a, count: "</span>, sys.getrefcount(a) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">function</span><span class="params">(c)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'in function, count: '</span>, sys.getrefcount(c) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">function(a)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'after func(a)'</span>, sys.getrefcount(<span class="number">11</span>) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">list = [a, <span class="number">12</span>, <span class="number">14</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">'after list=[a,12,14]'</span>, sys.getrefcount(<span class="number">11</span>) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">12</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'after a = 12, count: '</span>, sys.getrefcount(<span class="number">11</span>) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">del</span> a</span><br><span class="line"><span class="keyword">print</span> <span class="string">'after del a, count: '</span>, sys.getrefcount(<span class="number">11</span>) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">del</span> b</span><br><span class="line"><span class="keyword">print</span> <span class="string">'after del b, count: '</span>, sys.getrefcount(<span class="number">11</span>) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">list.pop(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">'after pop list, count: '</span>, sys.getrefcount(<span class="number">11</span>)<span class="number">-1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">del</span> list</span><br><span class="line"><span class="keyword">print</span> <span class="string">'after del list, count: '</span>, sys.getrefcount(<span class="number">11</span>) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">init <span class="number">26</span></span><br><span class="line">after a = <span class="number">11</span>, count: <span class="number">27</span></span><br><span class="line">after b = a, count:  <span class="number">28</span></span><br><span class="line"><span class="keyword">in</span> function, count:  <span class="number">30</span></span><br><span class="line">after func(a) <span class="number">28</span></span><br><span class="line">after list=[a,<span class="number">12</span>,<span class="number">14</span>] <span class="number">29</span></span><br><span class="line">after a = <span class="number">12</span>, count:  <span class="number">28</span></span><br><span class="line">after <span class="keyword">del</span> a, count:  <span class="number">28</span></span><br><span class="line">after <span class="keyword">del</span> b, count:  <span class="number">27</span></span><br><span class="line">after pop list, count:  <span class="number">26</span></span><br><span class="line">after <span class="keyword">del</span> list, count:  <span class="number">26</span></span><br></pre></td></tr></table></figure>
+<h4 id="分代收集"><a href="#分代收集" class="headerlink" title="分代收集"></a>分代收集</h4><p>在Python中，采用分代收集的方法，把内存分为3代，少年代（gengeration 0），中年代(generation 1)，老年代(generation 2)。</p>
+<p>在python 中有gc模块，get_count会返回一个长度为3的计数器。</p>
+<p>(count0, count1, count2）</p>
+<p>所有新申请的对象都放置在generation 0 中，当对象经历过一次0代内存检查并活下来会被放入gengeration 1 中，当经历过一次二代的内存检查并活下来会被放入gengeration 2 中。</p>
+<p>那么什么情况下会进行一次内存检查呢？<br>当申请内存的次数大于释放内存的次数超过threshold0</p>
+<p><a href="https://docs.python.org/2/library/gc.html" target="_blank" rel="external">The GC classifies objects into three generations depending on how many collection sweeps they have survived. New objects are placed in the youngest generation (generation 0). If an object survives a collection it is moved into the next older generation. Since generation 2 is the oldest generation, objects in that generation remain there after a collection. In order to decide when to run, the collector keeps track of the number object allocations and deallocations since the last collection. When the number of allocations minus the number of deallocations exceeds threshold0, collection starts. Initially only generation 0 is examined. If generation 0 has been examined more than threshold1 times since generation 1 has been examined, then generation 1 is examined as well. Similarly, threshold2controls the number of collections of generation 1 before collecting generation 2.</a></p>
+<p>例如，假设阀值是(700,10,10)：<br>1 当计数器从(699,3,0)增加到(700,3,0)，gc模块就会执行gc.collect(0),即检查一代对象的垃圾，并重置计数器为(0,4,0)<br>2 当计数器从(699,9,0)增加到(700,9,0)，gc模块就会执行gc.collect(1),即检查一、二代对象的垃圾，并重置计数器为(0,0,1)<br>3 当计数器从(699,9,9)增加到(700,9,9)，gc模块就会执行gc.collect(2),即检查一、二、三代对象的垃圾，并重置计数器为(0,0,0)</p>
+<h4 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h4><p>即认为有效的对象之间能通过有向图连接起来，其中图的节点是对象，而边是引用，下图中obj代表对象，ref代表引用，从一些不能被释放的对象节点出发(称为root object，一些全局引用或者函数栈中的引用[5]，例如下图的obj_1，箭头表示obj_1引用了obj_2)遍历各代引用数不为0的对象。在python源码中，每个变量不仅有一个引用计数，还有一个有效引用计数gc_ref，后者一开始等于前者，但是启动标记清除法开始遍历对象时，从root object出发(初始图中的gc_ref为(1,1,1,1,1,1,1))，当对象i引用了对象j时，将对象j的有效引用个数减去1，这样下图中各个对象有效引用个数变为了(1, 0, 0, 0, 0, 0, 0)，接着将所有对象分配到两个表中，一个是reachable对象表，一个是unreachable对象表，root object和在图中能够直接或者间接与它们相连的对象就放入reachable，而不能通过root object访问到且有效引用个数变为0的对象作为放入unreachable，从而通过这种方式来消去循环引用的影响。</p>
+<h3 id="内存池机制"><a href="#内存池机制" class="headerlink" title="内存池机制"></a>内存池机制</h3><h4 id="内存池"><a href="#内存池" class="headerlink" title="内存池"></a>内存池</h4><p><img src="http://o9duaoodk.bkt.clouddn.com/python-memory.png" alt="python-memory.png"></p>
+<p>Python的内存机制以金字塔行</p>
+<p>-1，-2层主要有操作系统进行操作；</p>
+<p>第0层是C中的malloc，free等内存分配和释放函数进行操作；</p>
+<p>第1层和第2层是内存池，有Python的接口函数PyMem_Malloc函数实现，当对象小于256K时有该层直接分配内存；</p>
+<p>第3层是最上层，也就是我们对Python对象的直接操作；</p>
+<p>在 C 中如果频繁的调用 malloc 与 free 时,是会产生性能问题的.再加上频繁的分配与释放小块的内存会产生内存碎片. Python 在这里主要干的工作有:<br>　　如果请求分配的内存在1~256字节之间就使用自己的内存管理系统,否则直接使用 malloc.<br>　　这里还是会调用 malloc 分配内存,但每次会分配一块大小为256k的大块内存.<br>　　经由内存池登记的内存到最后还是会回收到内存池,并不会调用 C 的 free 释放掉.以便下次使用.</p>
+<h4 id="对象缓冲池"><a href="#对象缓冲池" class="headerlink" title="对象缓冲池"></a><a href="http://responseip.com/2017/02/23/python-string-interning/" target="_blank" rel="external">对象缓冲池</a></h4><p>参考：<br><a href="http://www.cnblogs.com/Xjng/p/5128269.html" target="_blank" rel="external">python垃圾回收机制</a></p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/23/python-string-interning/" rel="next" title="python string intern">
+                <i class="fa fa-chevron-left"></i> python string intern
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/03/05/python-内存管理机制/"
+           data-title="python 内存管理机制" data-url="http://yoursite.com/2017/03/05/python-内存管理机制/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/zd.JPG"
+               alt="zhangdede" />
+          <p class="site-author-name" itemprop="name">zhangdede</p>
+          <p class="site-description motion-element" itemprop="description">python ｜mysql ｜Linux</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Python语言是一种动态的解释编程语言"><span class="nav-number">1.</span> <span class="nav-text">Python语言是一种动态的解释编程语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收"><span class="nav-number">2.</span> <span class="nav-text">垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引用计数"><span class="nav-number">2.1.</span> <span class="nav-text">引用计数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分代收集"><span class="nav-number">2.2.</span> <span class="nav-text">分代收集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标记清除"><span class="nav-number">2.3.</span> <span class="nav-text">标记清除</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存池机制"><span class="nav-number">3.</span> <span class="nav-text">内存池机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#内存池"><span class="nav-number">3.1.</span> <span class="nav-text">内存池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象缓冲池"><span class="nav-number">3.2.</span> <span class="nav-text">对象缓冲池</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhangdede</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<span id="busuanzi_container_site_uv">
+|本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"dedededede"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
